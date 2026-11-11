@@ -1,6 +1,6 @@
 # Done: “green” / “done” with no test receipt
 
-- Module: done (`deploy-check done` / `deploy_check_done`)
+- Module: done (`agent-evidence-check done` / `deploy_check_done`)
 - Role: motivating case for `done_evidence` and `tests_untampered`
 
 ## Pattern

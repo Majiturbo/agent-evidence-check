@@ -1,6 +1,6 @@
 # Post-deploy verify (any repo)
 
-`deploy-check verify` observes each unit and runs `units_match`. It does not SSH or call your hosts unless **you** put that in the unit’s `observe` block.
+`agent-evidence-check verify` observes each unit and runs `units_match`. It does not SSH or call your hosts unless **you** put that in the unit’s `observe` block.
 
 ## 1. Declare units
 

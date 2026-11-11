@@ -19,10 +19,10 @@
 
 First public cut: evidence-backed deploy checks for coding agents.
 
-npm package is **`agent-evidence-check`** (unscoped `deploy-check` is already taken on the registry). CLI bin names stay `deploy-check` / `deploy-check-mcp` / `deploy-check-install-hooks`.
+npm package is **`agent-evidence-check`** (unscoped `deploy-check` is already taken on the registry). Primary bins are `agent-evidence-check*`; `deploy-check*` remain as aliases.
 
 - Closed-registry checks: `dirty_tree`, `deploy_from_commit`, `unpushed`, `units_declared`, `units_match`, `hotpatch_drift`, `direction_review`, `loop_escape`, `done_evidence`, `tests_untampered`
-- CLI: `deploy-check` (pre-deploy), `verify`, `direction`, `loop`, `done`, `init`, `doctor`
+- CLI: `agent-evidence-check` / alias `deploy-check` (pre-deploy), `verify`, `direction`, `loop`, `done`, `init`, `doctor`
 - Hooks bridge for Cursor, Claude Code, Codex, Trae, Copilot, Qoder, DSH (+ `install-hooks` / `--uninstall`)
 - Per-repo opt-in via `deploy-units.json`; portable `hooks/run.sh` and Windows `node "…/bridge.mjs"`
 - Post-deploy observe: `http_json`, `http_text`, `file_sha256`, `command`, `literal`

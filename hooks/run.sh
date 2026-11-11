@@ -38,9 +38,9 @@ resolve_node() {
 }
 
 if ! NODE="$(resolve_node)"; then
-  echo "deploy-check: node not found (need Node >= 22). Set DEPLOY_CHECK_NODE or put node on PATH." >&2
+  echo "agent-evidence-check: node not found (need Node >= 22). Set DEPLOY_CHECK_NODE or put node on PATH." >&2
   # Fail open for hook hosts that treat non-zero as hard deny (e.g. Copilot preToolUse).
-  echo '{"permission":"allow","permissionDecision":"allow","permissionDecisionReason":"deploy-check: node not found (fail open)","hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"allow","permissionDecisionReason":"deploy-check: node not found (fail open)"}}'
+  echo '{"permission":"allow","permissionDecision":"allow","permissionDecisionReason":"agent-evidence-check: node not found (fail open)","hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"allow","permissionDecisionReason":"agent-evidence-check: node not found (fail open)"}}'
   exit 0
 fi
 exec "$NODE" "$ROOT/hooks/bridge.mjs"

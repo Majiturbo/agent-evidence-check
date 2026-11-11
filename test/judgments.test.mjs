@@ -11,7 +11,7 @@ import { callTool } from '../src/mcp/stdio.mjs';
 import { mockGit, SHA } from './helpers.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const CLI = path.join(ROOT, 'bin', 'check-deploy.mjs');
+const CLI = path.join(ROOT, 'bin', 'agent-evidence-check.mjs');
 
 const goodDirection = {
   moment: 'start',

@@ -1,6 +1,6 @@
 # MCP server (any MCP host)
 
-`deploy-check` exposes the same checks as the CLI over the [Model Context Protocol](https://modelcontextprotocol.io/) stdio transport (one JSON-RPC message per line). Use this when you want agents to **call** evidence checks explicitly, without relying on each IDE’s shell hooks.
+`agent-evidence-check` exposes the same checks as the CLI over the [Model Context Protocol](https://modelcontextprotocol.io/) stdio transport (one JSON-RPC message per line). Use this when you want agents to **call** evidence checks explicitly, without relying on each IDE’s shell hooks.
 
 Hooks and MCP complement each other: hooks catch impulsive `ssh`/`stash`; MCP lets the agent run `verify` before saying “live”.
 
@@ -21,7 +21,7 @@ Each tool returns JSON text (and `structuredContent`) with `ok`, `findings`, and
 From a clone:
 
 ```bash
-node /absolute/path/to/deploy-check/bin/deploy-check-mcp.mjs
+node /absolute/path/to/agent-evidence-check/bin/agent-evidence-check-mcp.mjs
 ```
 
 After publish:
@@ -32,7 +32,7 @@ npx agent-evidence-check-mcp
 
 ## Host config examples
 
-Copy [`examples/mcp.cursor.fragment.json`](../examples/mcp.cursor.fragment.json) or [`examples/mcp.claude-desktop.fragment.json`](../examples/mcp.claude-desktop.fragment.json) and replace `/ABS/PATH/TO/deploy-check` with **your** clone or package path. Do not copy another machine’s home directory.
+Copy [`examples/mcp.cursor.fragment.json`](../examples/mcp.cursor.fragment.json) or [`examples/mcp.claude-desktop.fragment.json`](../examples/mcp.claude-desktop.fragment.json) and replace `/ABS/PATH/TO/agent-evidence-check` with **your** clone or package path. Do not copy another machine’s home directory.
 
 Pass `cwd` in each tool call so the server checks the app repo, not the MCP server’s cwd:
 
@@ -42,4 +42,4 @@ Pass `cwd` in each tool call so the server checks the app repo, not the MCP serv
 
 ## Consumer agent instructions
 
-Link [`docs/rules/deploy-check.md`](./rules/deploy-check.md) from the app’s `AGENTS.md`, and tell the agent to call `deploy_check_direction` / `deploy_check_loop` / `deploy_check_done` / `deploy_check_verify` at the moments in that contract. A paste-ready fragment: [`examples/AGENTS.fragment.md`](../examples/AGENTS.fragment.md).
+Link [`docs/rules/agent-evidence-check.md`](./rules/agent-evidence-check.md) from the app’s `AGENTS.md`, and tell the agent to call `deploy_check_direction` / `deploy_check_loop` / `deploy_check_done` / `deploy_check_verify` at the moments in that contract. A paste-ready fragment: [`examples/AGENTS.fragment.md`](../examples/AGENTS.fragment.md).

@@ -45,4 +45,4 @@ See [`docs/judgments.md`](./judgments.md). Stdin smokes are in `test/gates.test.
 
 ## Rules layer (still required)
 
-Deploy hooks only see shell tool calls. Direction/loop still need MCP or CLI (gates only force the call). Keep [`docs/rules/deploy-check.md`](./rules/deploy-check.md) linked from every app’s `AGENTS.md`.
+Deploy hooks only see shell tool calls. Direction/loop still need MCP or CLI (gates only force the call). Keep [`docs/rules/agent-evidence-check.md`](./rules/agent-evidence-check.md) linked from every app’s `AGENTS.md`.

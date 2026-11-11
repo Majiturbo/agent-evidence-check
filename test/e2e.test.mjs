@@ -112,12 +112,14 @@ test('install is idempotent, keeps foreign hooks, uninstall removes only ours', 
   const cursorInstalled = JSON.parse(fs.readFileSync(path.join(home, '.cursor', 'hooks.json'), 'utf8'));
   assert.ok(cursorInstalled.hooks.stop?.some((h) => String(h.command).includes('hooks/')));
   assert.equal(cursorInstalled.hooks.stop[0].loop_limit, 3);
+  assert.equal(fs.existsSync(path.join(home, '.copilot', 'hooks', 'agent-evidence-check.json')), true);
 
   run('--uninstall');
   const after = JSON.parse(fs.readFileSync(path.join(home, '.claude', 'settings.json'), 'utf8'));
   const left = after.hooks.PreToolUse.flatMap((g) => g.hooks.map((h) => h.command));
   assert.deepEqual(left, [foreign.command]);
   assert.equal(after.hooks.Stop, undefined);
+  assert.equal(fs.existsSync(path.join(home, '.copilot', 'hooks', 'agent-evidence-check.json')), false);
   assert.equal(fs.existsSync(path.join(home, '.copilot', 'hooks', 'deploy-check.json')), false);
   const cursor = JSON.parse(fs.readFileSync(path.join(home, '.cursor', 'hooks.json'), 'utf8'));
   assert.equal(cursor.hooks.beforeShellExecution, undefined);

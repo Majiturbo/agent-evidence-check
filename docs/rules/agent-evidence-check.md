@@ -1,6 +1,6 @@
-# Deploy checks (tool-agnostic; link from every agent's `AGENTS.md`)
+# Agent evidence checks (tool-agnostic; link from every agent's `AGENTS.md`)
 
-[中文版](./deploy-check.zh-CN.md)
+[中文版](./agent-evidence-check.zh-CN.md)
 
 These rules do not depend on any IDE. Where a host has hooks (Cursor, Claude Code, Codex, Trae, Copilot, Qoder, DSH), the hook is the enforcement layer; **this file is the minimum contract for every tool**.
 
@@ -17,7 +17,7 @@ These rules do not depend on any IDE. Where a host has hooks (Cursor, Claude Cod
 
    ```bash
    npx agent-evidence-check --cwd . --shadow
-   # or: node /path/to/deploy-check/bin/check-deploy.mjs --cwd . --shadow
+   # or: node /path/to/agent-evidence-check/bin/agent-evidence-check.mjs --cwd . --shadow
    ```
 
    Resolve any `block` findings before continuing.

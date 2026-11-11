@@ -81,10 +81,10 @@ const en = {
     'This git command would clear the working tree, which has uncommitted changes (possibly another agent or session). Do not stash/checkout/reset/clean them away.',
   'hook.clear_clean':
     'This git command clears the working tree. It is clean now, so nothing is lost, but deploys should not depend on clearing; deploy from a pushed SHA.',
-  'hook.not_enrolled': 'deploy-check: no deploy-units.json in this repo (not enrolled)',
-  'hook.not_shell': 'deploy-check: not a shell command',
-  'hook.unrecognized': 'deploy-check: unrecognized hook payload',
-  'hook.blocked': 'deploy-check blocked',
+  'hook.not_enrolled': 'agent-evidence-check: no deploy-units.json in this repo (not enrolled)',
+  'hook.not_shell': 'agent-evidence-check: not a shell command',
+  'hook.unrecognized': 'agent-evidence-check: unrecognized hook payload',
+  'hook.blocked': 'agent-evidence-check blocked',
   'hook.header': (mode) => `Deploy check (${mode})`,
 
   'observe.manual': 'No machine observe spec — supply evidence with --observed or add an observe block',
@@ -126,13 +126,13 @@ const en = {
   'loop_escape.opt.stop': ['Stop and ask which class to try'],
 
   'gate.direction':
-    'deploy-check: call deploy_check_direction (or `deploy-check direction`) before continuing. You edited files without a direction receipt for this session.',
+    'agent-evidence-check: call deploy_check_direction (or `agent-evidence-check direction`) before continuing. You edited files without a direction receipt for this session.',
   'gate.loop':
-    'deploy-check: call deploy_check_loop (or `deploy-check loop`) before finishing. Edit count reached the threshold without a successful loop receipt after those edits.',
+    'agent-evidence-check: call deploy_check_loop (or `agent-evidence-check loop`) before finishing. Edit count reached the threshold without a successful loop receipt after those edits.',
   'gate.edit': (file, count, min) =>
-    `deploy-check: ${file} edited ${count} times (≥ ${min}). Call deploy_check_loop with a different approach class before more edits.`,
+    `agent-evidence-check: ${file} edited ${count} times (≥ ${min}). Call deploy_check_loop with a different approach class before more edits.`,
   'gate.done':
-    'deploy-check: call deploy_check_done (or `deploy-check done`) before finishing. Edits need a green, untampered test receipt.',
+    'agent-evidence-check: call deploy_check_done (or `agent-evidence-check done`) before finishing. Edits need a green, untampered test receipt.',
 
   'done_evidence.premise': 'Saying done is fine without a green test run on the record',
   'done_evidence.message':
@@ -235,10 +235,10 @@ const zh = {
   'hook.ok': '部署前检查通过',
   'hook.clear_dirty': '这条 git 命令会清场；工作区有未提交改动（可能属于另一个工具或会话），禁止用 stash/checkout/reset/clean 清掉。',
   'hook.clear_clean': '这条 git 命令会清场。当前工作区干净，不会丢改动；但部署流程不应依赖清场，请从已推送 SHA 部署。',
-  'hook.not_enrolled': 'deploy-check：本仓库没有 deploy-units.json（未启用）',
-  'hook.not_shell': 'deploy-check：不是 shell 命令',
-  'hook.unrecognized': 'deploy-check：无法识别的钩子输入',
-  'hook.blocked': 'deploy-check 已拦截',
+  'hook.not_enrolled': 'agent-evidence-check：本仓库没有 deploy-units.json（未启用）',
+  'hook.not_shell': 'agent-evidence-check：不是 shell 命令',
+  'hook.unrecognized': 'agent-evidence-check：无法识别的钩子输入',
+  'hook.blocked': 'agent-evidence-check 已拦截',
   'hook.header': (mode) => `部署核对（${mode}）`,
 
   'observe.manual': '没有可自动观测的配置——请用 --observed 提供证据，或给单元加上 observe 块',
@@ -273,13 +273,13 @@ const zh = {
   'loop_escape.opt.stop': ['停下来，问接下来试哪一类'],
 
   'gate.direction':
-    'deploy-check：请先调用 deploy_check_direction（或 `deploy-check direction`）。本会话已改文件，但还没有方向审查回执。',
+    'agent-evidence-check：请先调用 deploy_check_direction（或 `agent-evidence-check direction`）。本会话已改文件，但还没有方向审查回执。',
   'gate.loop':
-    'deploy-check：请先调用 deploy_check_loop（或 `deploy-check loop`）。修改次数已达阈值，且这些修改之后没有成功的循环跳脱回执。',
+    'agent-evidence-check：请先调用 deploy_check_loop（或 `agent-evidence-check loop`）。修改次数已达阈值，且这些修改之后没有成功的循环跳脱回执。',
   'gate.edit': (file, count, min) =>
-    `deploy-check：${file} 已修改 ${count} 次（≥ ${min}）。继续改之前请调用 deploy_check_loop，并换成另一个做法类别。`,
+    `agent-evidence-check：${file} 已修改 ${count} 次（≥ ${min}）。继续改之前请调用 deploy_check_loop，并换成另一个做法类别。`,
   'gate.done':
-    'deploy-check：结束前请调用 deploy_check_done（或 `deploy-check done`）。有改动就需要一份未洗测试且退出码为 0 的回执。',
+    'agent-evidence-check：结束前请调用 deploy_check_done（或 `agent-evidence-check done`）。有改动就需要一份未洗测试且退出码为 0 的回执。',
 
   'done_evidence.premise': '没有记录一次绿的测试，也可以说做完了',
   'done_evidence.message':

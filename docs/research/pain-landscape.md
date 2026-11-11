@@ -1,4 +1,4 @@
-# Agent pain landscape (what else fits deploy-check)
+# Agent pain landscape (what else fits agent-evidence-check)
 
 - Date: 2026-11-11
 - Question: Beyond deploy / direction / loop, which failures make users miserable and still fit **“judgments need evidence”**?

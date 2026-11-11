@@ -12,7 +12,7 @@ import { evaluateStopGate, loadReceipts, noteEdit, noteDirection, noteDone, note
 import { mockGit } from './helpers.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const CLI = path.join(ROOT, 'bin', 'check-deploy.mjs');
+const CLI = path.join(ROOT, 'bin', 'agent-evidence-check.mjs');
 const BRIDGE = path.join(ROOT, 'hooks', 'bridge.mjs');
 
 function repo() {

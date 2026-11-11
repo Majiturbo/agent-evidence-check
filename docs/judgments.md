@@ -1,6 +1,6 @@
 # Direction review and loop escape
 
-[中文规则见](./rules/deploy-check.zh-CN.md)
+[中文规则见](./rules/agent-evidence-check.zh-CN.md)
 
 Deploy checks answer “is it live?” from git and from `observe` blocks. Direction, loop, and **done** need a written record or a green test receipt. This library does **not** read the chat and does **not** call a model. Shell hooks do **not** run these checks (Stop/edit gates only force the call when you opt in).
 
@@ -92,7 +92,7 @@ Nothing in this library can read “I am done” out of free text on every host.
 
 ### 1. Contract (every host — required baseline)
 
-1. Keep [`docs/rules/deploy-check.md`](./rules/deploy-check.md) linked from the app’s `AGENTS.md` (rules 7–9).
+1. Keep [`docs/rules/agent-evidence-check.md`](./rules/agent-evidence-check.md) linked from the app’s `AGENTS.md` (rules 7–9).
 2. Configure the MCP server so `deploy_check_direction`, `deploy_check_loop`, and `deploy_check_done` are always listed (see [`docs/mcp.md`](./mcp.md)).
 3. Prefer MCP over shell for these three: the tool schema already names the required fields.
 
@@ -150,7 +150,7 @@ Do **not** scrape the full transcript to guess whether a loop is happening. Coun
 
 ### 4. Practical default for a consumer app
 
-1. `deploy-check init`, then set `"judgments": { "stopGate": true, "editGate": true, "doneGate": true }` (example ships this on).
+1. `agent-evidence-check init`, then set `"judgments": { "stopGate": true, "editGate": true, "doneGate": true }` (example ships this on).
 2. Wire MCP (`deploy_check_*` tools).
 3. Keep rules 7–9 in `AGENTS.md`.
-4. `npm run install-hooks` from your deploy-check clone.
+4. `npm run install-hooks` from your agent-evidence-check clone.

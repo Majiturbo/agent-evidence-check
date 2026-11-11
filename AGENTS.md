@@ -1,6 +1,6 @@
 # AGENTS.md — rules for work *in this repository*
 
-This file is the always-on contract for any coding agent editing **deploy-check** (this repo).  
+This file is the always-on contract for any coding agent editing **agent-evidence-check** (this repo).  
 If a habit conflicts with this file, **this file wins**.
 
 Consumer apps (whatever the author uses day to day) are **not** part of this product. Do not treat them as the default target, do not wire their hosts into examples, and do not “finish the library” by only making those apps work.
@@ -22,7 +22,7 @@ v0.1 scope: deploy hooks + `verify`, plus explicit `direction`, `loop`, and `don
 ## 2. Hard constraints (do not violate)
 
 1. **Audience = any GitHub user.** Every example, default, README snippet, and installer path must work for a stranger’s clone. Ask: “Would this still make sense if the author’s laptop and apps did not exist?”
-2. **No personal absolute paths** in committed files (`/Users/…`, vendor runtime paths like a specific DSH Node). Use `hooks/run.sh`, `npx agent-evidence-check`, or documented placeholders such as `/ABS/PATH/TO/deploy-check/hooks/run.sh`.
+2. **No personal absolute paths** in committed files (`/Users/…`, vendor runtime paths like a specific DSH Node). Use `hooks/run.sh`, `npx agent-evidence-check`, or documented placeholders such as `/ABS/PATH/TO/agent-evidence-check/hooks/run.sh`.
 3. **No private product identity in the public surface.** Examples use `example.com` and generic unit ids (`api`, `web_static`). Case studies stay **pattern + redacted**; do not put real hostnames, app brand names, or internal paths into `examples/`, `README*`, or user-facing strings.
 4. **Opt-in per repo.** Hooks may be installed user-wide but must **no-op** unless that repo has `deploy-units.json`. Never make “install hooks” mean “police every repo on the machine.”
 5. **One check implementation.** New agent hosts get a stdin dialect in `hooks/bridge.mjs` (and a row in `docs/adapters.md`) — do not fork `dirty_tree` per IDE.
@@ -39,7 +39,7 @@ v0.1 scope: deploy hooks + `verify`, plus explicit `direction`, `loop`, and `don
 | File | Audience | Put here | Do not put here |
 |---|---|---|---|
 | **`AGENTS.md` (this file)** | Agents editing *this* repo | Hard constraints, scope, pointers | Long tutorials, vendor paste dumps |
-| **`docs/rules/deploy-check.md`** | Agents in *any consumer* app | Deploy, direction, and loop contract to link from their `AGENTS.md` | Installer internals, bridge dialects |
+| **`docs/rules/agent-evidence-check.md`** | Agents in *any consumer* app | Deploy, direction, and loop contract to link from their `AGENTS.md` | Installer internals, bridge dialects |
 | **`docs/judgments.md`** | Any consumer | When to call direction and loop, and what evidence they require | Chat scraping, a hidden model |
 | **`docs/verify.md`** | Any consumer | How to write `observe` / run `verify` | Personal host URLs |
 | **`docs/adapters.md` / `docs/hook-setup.md`** | Integrators | Host matrix, install, Windows notes | Product roadmap essays |
@@ -65,7 +65,7 @@ When the user says “continue” on this product, **default work is inside this
 **Hooks (`hooks/`, `scripts/install-hooks.mjs`)**  
 - Entry for Unix: `hooks/run.sh`. Windows install command: `node "<fwd-slash>/hooks/bridge.mjs"`.  
 - Installer must be idempotent, rewrite old entries to the current package path, keep foreign hooks, support `--uninstall`.  
-- Follow [`docs/rules/deploy-check.md`](docs/rules/deploy-check.md) for behavior; follow [`docs/adapters.md`](docs/adapters.md) for host claims.
+- Follow [`docs/rules/agent-evidence-check.md`](docs/rules/agent-evidence-check.md) for behavior; follow [`docs/adapters.md`](docs/adapters.md) for host claims.
 
 **Docs**  
 - Portable examples only. After adapter changes: vendor docs + smoke payload, then update the matrix.
@@ -74,14 +74,14 @@ When the user says “continue” on this product, **default work is inside this
 
 ```bash
 npm test
-node bin/check-deploy.mjs init --cwd /tmp/sample-app   # consumer scaffold (portable)
-node bin/check-deploy.mjs doctor --cwd /tmp/sample-app
-node bin/check-deploy.mjs --cwd . --shadow
-node bin/check-deploy.mjs verify --cwd . --help
-node bin/check-deploy.mjs direction --help
-node bin/check-deploy.mjs loop --help
-node bin/check-deploy.mjs done --cwd . --help
-node bin/deploy-check-mcp.mjs
+node bin/agent-evidence-check.mjs init --cwd /tmp/sample-app   # consumer scaffold (portable)
+node bin/agent-evidence-check.mjs doctor --cwd /tmp/sample-app
+node bin/agent-evidence-check.mjs --cwd . --shadow
+node bin/agent-evidence-check.mjs verify --cwd . --help
+node bin/agent-evidence-check.mjs direction --help
+node bin/agent-evidence-check.mjs loop --help
+node bin/agent-evidence-check.mjs done --cwd . --help
+node bin/agent-evidence-check-mcp.mjs
 node scripts/install-hooks.mjs          # optional; writes into *this* user's $HOME
 node scripts/install-hooks.mjs --uninstall
 ```
@@ -103,7 +103,7 @@ Node >= 22.
 
 ## 6. Quick pointers
 
-- Consumer deploy contract: [`docs/rules/deploy-check.md`](docs/rules/deploy-check.md) (zh: [`docs/rules/deploy-check.zh-CN.md`](docs/rules/deploy-check.zh-CN.md))
+- Consumer deploy contract: [`docs/rules/agent-evidence-check.md`](docs/rules/agent-evidence-check.md) (zh: [`docs/rules/agent-evidence-check.zh-CN.md`](docs/rules/agent-evidence-check.zh-CN.md))
 - Verify / observe: [`docs/verify.md`](docs/verify.md)
 - Direction and loop: [`docs/judgments.md`](docs/judgments.md)
 - MCP server: [`docs/mcp.md`](docs/mcp.md)

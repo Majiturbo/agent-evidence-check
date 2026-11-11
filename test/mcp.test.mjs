@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { callTool, consumeLines, handle, TOOLS, writeMessage } from '../src/mcp/stdio.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const MCP = path.join(ROOT, 'bin', 'deploy-check-mcp.mjs');
+const MCP = path.join(ROOT, 'bin', 'agent-evidence-check-mcp.mjs');
 
 function tmpRepo() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dc-mcp-'));
@@ -28,7 +28,7 @@ test('tools catalog names', () => {
 
 test('handle initialize and tools/list', async () => {
   const init = await handle({ jsonrpc: '2.0', id: 1, method: 'initialize', params: {} });
-  assert.equal(init.result.serverInfo.name, 'deploy-check');
+  assert.equal(init.result.serverInfo.name, 'agent-evidence-check');
   const list = await handle({ jsonrpc: '2.0', id: 2, method: 'tools/list' });
   assert.equal(list.result.tools.length, 5);
 });
@@ -84,7 +84,7 @@ test('newline-delimited stdio round-trip with real process', async () => {
   }
   child.kill();
 
-  assert.ok(messages.some((m) => m.id === 1 && m.result?.serverInfo?.name === 'deploy-check'));
+  assert.ok(messages.some((m) => m.id === 1 && m.result?.serverInfo?.name === 'agent-evidence-check'));
   assert.ok(messages.some((m) => m.id === 2 && m.result?.tools?.length === 5));
   const call = messages.find((m) => m.id === 3);
   assert.ok(call?.result?.content?.[0]?.text);

@@ -1,6 +1,6 @@
 # 部署核对（工具无关，应写入各 Agent 手册）
 
-[English](./deploy-check.md)
+[English](./agent-evidence-check.md)
 
 本规则不依赖任何 IDE。Cursor / Claude Code / Codex 等若另有 hook，hook 是强制执行层；**本文件是所有工具的最低公约**。
 
@@ -17,7 +17,7 @@
 
    ```bash
    npx agent-evidence-check --cwd . --shadow
-   # or: node /path/to/deploy-check/bin/check-deploy.mjs --cwd . --shadow
+   # or: node /path/to/agent-evidence-check/bin/agent-evidence-check.mjs --cwd . --shadow
    ```
 
    有 `block` 级 finding 时先处理，再继续。

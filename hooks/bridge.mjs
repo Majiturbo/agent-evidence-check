@@ -178,7 +178,7 @@ function emitPreTool(result, mode, meta, lang) {
       hookSpecificOutput: {
         hookEventName: 'PreToolUse',
         permissionDecision: decision,
-        permissionDecisionReason: reason || (decision === 'allow' ? 'deploy-check ok' : t(lang, 'hook.blocked')),
+        permissionDecisionReason: reason || (decision === 'allow' ? 'agent-evidence-check ok' : t(lang, 'hook.blocked')),
       },
       permissionDecision: decision,
       permissionDecisionReason: reason || undefined,
@@ -194,7 +194,7 @@ function emitCopilot(result, mode, meta, lang) {
   console.log(
     JSON.stringify({
       permissionDecision: decision,
-      permissionDecisionReason: reason || (decision === 'allow' ? 'deploy-check ok' : t(lang, 'hook.blocked')),
+      permissionDecisionReason: reason || (decision === 'allow' ? 'agent-evidence-check ok' : t(lang, 'hook.blocked')),
       _deploy_check: meta,
     }),
   );
@@ -300,7 +300,7 @@ async function main() {
     if (gate.block) {
       emitPreTool({ permission: 'deny', reason: gateReason(lang, gate) }, mode, meta, lang);
     } else {
-      allowPassthrough('pretool', 'deploy-check: edit ok');
+      allowPassthrough('pretool', 'agent-evidence-check: edit ok');
     }
     return;
   }
@@ -339,13 +339,13 @@ if (isMain) {
       JSON.stringify({
         permission: 'allow',
         permissionDecision: 'allow',
-        permissionDecisionReason: `deploy-check error (fail open): ${e.message}`,
+        permissionDecisionReason: `agent-evidence-check error (fail open): ${e.message}`,
         hookSpecificOutput: {
           hookEventName: 'PreToolUse',
           permissionDecision: 'allow',
-          permissionDecisionReason: `deploy-check error (fail open): ${e.message}`,
+          permissionDecisionReason: `agent-evidence-check error (fail open): ${e.message}`,
         },
-        agent_message: `deploy-check error (fail open): ${e.message}`,
+        agent_message: `agent-evidence-check error (fail open): ${e.message}`,
       }),
     );
   });

@@ -1,17 +1,9 @@
 #!/usr/bin/env node
 /**
- * CLI for deploy-check.
+ * CLI for agent-evidence-check (alias bin: deploy-check).
  *
- *   deploy-check init [--cwd DIR] [--lang en|zh] [--force] [--with-copilot-hook]
- *   deploy-check doctor [--cwd DIR]
- *   deploy-check [--cwd DIR] [--commit SHA] [--config PATH] [--shadow|--block]
- *   deploy-check verify [--cwd DIR] [--commit SHA] [--unit ID]...
- *       [--observed JSON|@file] [--timeout MS] [--shadow|--block]
- *   deploy-check direction --moment start|turn --goal TEXT --path TEXT
- *       --nearer TEXT --why TEXT --evidence TEXT [--cwd DIR] [--shadow|--block]
- *   deploy-check loop --target NAME --edits N --rejections N [--claims-fixed]
- *       --tried CLASS [--next CLASS] [--alternative CLASS]... [--cwd DIR] [--shadow|--block]
- *   deploy-check done [--cwd DIR] [--command CMD] [--exit-code N] [--no-run] [--shadow|--block]
+ *   agent-evidence-check init|doctor|verify|direction|loop|done …
+ *   agent-evidence-check-mcp
  */
 
 import fs from 'node:fs';
@@ -51,18 +43,20 @@ function modeFromArgv() {
 
 function help() {
   console.log(`Usage:
-  deploy-check init [--cwd DIR] [--lang en|zh] [--force] [--with-copilot-hook]
-  deploy-check doctor [--cwd DIR]
-  deploy-check [--cwd DIR] [--commit SHA] [--config PATH] [--shadow|--block]
-  deploy-check verify [--cwd DIR] [--commit SHA] [--unit ID]...
+  agent-evidence-check init [--cwd DIR] [--lang en|zh] [--force] [--with-copilot-hook]
+  agent-evidence-check doctor [--cwd DIR]
+  agent-evidence-check [--cwd DIR] [--commit SHA] [--config PATH] [--shadow|--block]
+  agent-evidence-check verify [--cwd DIR] [--commit SHA] [--unit ID]...
       [--observed '{"id":"fp"}'|@file.json] [--timeout MS] [--shadow|--block]
-  deploy-check direction --moment start|turn --goal TEXT --path TEXT \\
+  agent-evidence-check direction --moment start|turn --goal TEXT --path TEXT \\
       --nearer TEXT --why TEXT --evidence TEXT [--cwd DIR] [--shadow|--block]
-  deploy-check loop --target NAME --edits N --rejections N [--claims-fixed] \\
+  agent-evidence-check loop --target NAME --edits N --rejections N [--claims-fixed] \\
       --tried CLASS [--next CLASS] [--alternative CLASS]... [--cwd DIR] [--shadow|--block]
-  deploy-check done [--cwd DIR] [--command CMD] [--exit-code N] [--no-run] [--timeout MS] \\
+  agent-evidence-check done [--cwd DIR] [--command CMD] [--exit-code N] [--no-run] [--timeout MS] \\
       [--shadow|--block]
-  deploy-check-mcp          # stdio MCP server (see docs/mcp.md)
+  agent-evidence-check-mcp   # stdio MCP server (see docs/mcp.md)
+
+Aliases: deploy-check / deploy-check-mcp (same entrypoints).
 `);
 }
 

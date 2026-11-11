@@ -16,12 +16,12 @@ v0.1 ships **deploy** verification (hooks + `verify`), plus explicit **direction
 
 ```bash
 node --test test/**/*.test.mjs
-node bin/check-deploy.mjs --cwd . --shadow
-node bin/check-deploy.mjs verify --cwd .
-node bin/check-deploy.mjs direction --help
-node bin/check-deploy.mjs loop --help
-node bin/check-deploy.mjs done --cwd . --command "node -e \"process.exit(0)\"" --no-run --exit-code 0
-node bin/deploy-check-mcp.mjs    # MCP stdio; see docs/mcp.md
+node bin/agent-evidence-check.mjs --cwd . --shadow
+node bin/agent-evidence-check.mjs verify --cwd .
+node bin/agent-evidence-check.mjs direction --help
+node bin/agent-evidence-check.mjs loop --help
+node bin/agent-evidence-check.mjs done --cwd . --command "node -e \"process.exit(0)\"" --no-run --exit-code 0
+node bin/agent-evidence-check-mcp.mjs    # MCP stdio; see docs/mcp.md
 node scripts/install-hooks.mjs   # optional, writes into your $HOME agent configs
 ```
 
@@ -38,7 +38,7 @@ Follow root [`AGENTS.md`](AGENTS.md) (open-source audience, no personal paths). 
 git checkout --orphan public-v0.1
 git add -A
 git status   # confirm no private transcripts, no /Users paths in staged text
-git commit -m "deploy-check 0.1.0"
+git commit -m "agent-evidence-check 0.2.0"
 # then: create empty GitHub repo, set remote, push -u origin public-v0.1:main
 ```
 

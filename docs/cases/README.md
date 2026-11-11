@@ -1,6 +1,6 @@
 # Case studies (product evidence)
 
-These are **pattern** write-ups that motivated the checks. No private hosts, app brands, or transcript paths. Anyone can use deploy-check without the author’s machines.
+These are **pattern** write-ups that motivated the checks. No private hosts, app brands, or transcript paths. Anyone can use agent-evidence-check without the author’s machines.
 
 | Case | Module | One line |
 |---|---|---|

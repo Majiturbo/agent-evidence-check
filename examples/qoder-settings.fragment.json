@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/ABS/PATH/TO/deploy-check/hooks/run.sh",
+            "command": "/ABS/PATH/TO/agent-evidence-check/hooks/run.sh",
             "timeout": 60
           }
         ]

@@ -10,7 +10,7 @@
 
 > **包已更名：** npm / 仓库现为 [`agent-evidence-check`](https://www.npmjs.com/package/agent-evidence-check)（原 `@majiturbo/deploy-check`）。配置文件 `deploy-units.json` 与 MCP 工具名 `deploy_check_*` 未改，兼容旧接入。
 
-> 编码 Agent 会把「方向对了 / 改好了 / 测试绿了 / 已经上线」说成定论，但工作区、测试退出码和线上单元上往往什么都没留下。厂商沙箱管的是危险命令；**deploy-check** 管的是这些**没有收据的判断**——在四个时刻用封闭检查要证据，而不是每条消息做语义审讯。
+> 编码 Agent 会把「方向对了 / 改好了 / 测试绿了 / 已经上线」说成定论，但工作区、测试退出码和线上单元上往往什么都没留下。厂商沙箱管的是危险命令；**agent-evidence-check** 管的是这些**没有收据的判断**——在四个时刻用封闭检查要证据，而不是每条消息做语义审讯。
 
 日常协作里，模型听起来很有把握：顺着提示往下做、同一类修法改了八轮仍说「好了」、空口报测试通过、只发了 API 却宣称全站上线。这些失败不是「权限没拦住」，而是**结论抢在证据前面**。
 
@@ -51,7 +51,7 @@ npm i -g agent-evidence-check
 npx agent-evidence-check --help
 ```
 
-> **注意：** 请在*本仓库检出目录之外*跑 `npx`。在仓库里面，`npx` 会解析到本地包且没有 `.bin` 链接 — 请改用 `node bin/check-deploy.mjs …`。
+> **注意：** 请在*本仓库检出目录之外*跑 `npx`。在仓库里面，`npx` 会解析到本地包且没有 `.bin` 链接 — 请改用 `node bin/agent-evidence-check.mjs …`。
 
 要求：**Node ≥ 22**，`git` 在 `PATH`。macOS / Linux / Windows。
 
@@ -137,7 +137,7 @@ npx agent-evidence-check-install-hooks
 "judgments": { "stopGate": true, "editGate": true, "doneGate": true }
 ```
 
-然后重新跑 install-hooks。Stop / 编辑需要 `.deploy-check/` 里近期通过的 `direction` / `loop` / `done` 收据。消费方规则：[`docs/rules/deploy-check.zh-CN.md`](docs/rules/deploy-check.zh-CN.md)。
+然后重新跑 install-hooks。Stop / 编辑需要 `.deploy-check/` 里近期通过的 `direction` / `loop` / `done` 收据。消费方规则：[`docs/rules/agent-evidence-check.zh-CN.md`](docs/rules/agent-evidence-check.zh-CN.md)。
 
 卸载：`npx agent-evidence-check-install-hooks --uninstall`（或在 clone 里 `node scripts/install-hooks.mjs --uninstall`）。
 
@@ -188,8 +188,8 @@ npx agent-evidence-check verify --cwd /path/to/your-app
 | 组件 | 作用 |
 |---|---|
 | `deploy-units.json` | 自愿登记；单元、`done` / `loop` / `judgments` |
-| CLI `deploy-check` | `direction`、`loop`、`done`、`pre-deploy`、`verify`、`init`、`doctor` |
-| `deploy-check-mcp` | 同上五个判断工具（stdio MCP） |
+| CLI `agent-evidence-check` (alias `deploy-check`) | `direction`、`loop`、`done`、`pre-deploy`、`verify`、`init`、`doctor` |
+| `agent-evidence-check-mcp` (alias `deploy-check-mcp`) | 同上五个判断工具（stdio MCP） |
 | `hooks/bridge.mjs` + `hooks/run.sh` | 部署 shell 桥；可选 Stop / 编辑闸 |
 | [`docs/adapters.md`](docs/adapters.md) | 各宿主钩子矩阵 |
 
@@ -205,7 +205,7 @@ npx agent-evidence-check verify --cwd /path/to/your-app
 | 文档 | 内容 |
 |---|---|
 | [`docs/judgments.md`](docs/judgments.md) | 何时调 direction / loop / done；证据字段 |
-| [`docs/rules/deploy-check.zh-CN.md`](docs/rules/deploy-check.zh-CN.md) | 消费方 `AGENTS.md` 约定 |
+| [`docs/rules/agent-evidence-check.zh-CN.md`](docs/rules/agent-evidence-check.zh-CN.md) | 消费方 `AGENTS.md` 约定 |
 | [`docs/verify.md`](docs/verify.md) | observe 类型与 `verify` |
 | [`docs/mcp.md`](docs/mcp.md) | MCP 接入 |
 | [`docs/hook-setup.md`](docs/hook-setup.md) | 安装 / 卸载钩子 |

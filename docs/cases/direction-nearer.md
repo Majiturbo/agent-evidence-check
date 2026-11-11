@@ -1,6 +1,6 @@
 # Direction: sunk cost without a nearer path on the record
 
-- Module: direction (`deploy-check direction` / `deploy_check_direction`)
+- Module: direction (`agent-evidence-check direction` / `deploy_check_direction`)
 - Role: motivating case for `direction_review` at start / turn
 
 ## Pattern

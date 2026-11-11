@@ -9,7 +9,7 @@ import { doctor } from '../src/doctor.mjs';
 import { validateUnits, loadDeployUnits } from '../src/config.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const CLI = path.join(ROOT, 'bin', 'check-deploy.mjs');
+const CLI = path.join(ROOT, 'bin', 'agent-evidence-check.mjs');
 
 function tmp() {
   return fs.mkdtempSync(path.join(os.tmpdir(), 'dc-doc-'));
@@ -50,7 +50,7 @@ test('doctor: enrolled temp repo + fake HOME without hooks', () => {
   assert.equal(gates.detail.stopGate, false);
   assert.equal(gates.detail.doneGate, false);
   assert.ok(gates.detail.done);
-  assert.ok(out.next.some((s) => /install-hooks|deploy-check-install-hooks/.test(s)));
+  assert.ok(out.next.some((s) => /install-hooks|agent-evidence-check-install-hooks|deploy-check-install-hooks/.test(s)));
   assert.ok(out.next.some((s) => /judgments|stopGate|doneGate/.test(s)));
   // packageRoot may be this clone's absolute path; advice strings must stay portable
   assert.ok(out.next.every((s) => !/\/Users\//.test(s)));

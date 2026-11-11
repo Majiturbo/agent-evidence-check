@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { dig, getObserveSpec, observeUnits } from '../src/observe/index.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const CLI = path.join(ROOT, 'bin', 'check-deploy.mjs');
+const CLI = path.join(ROOT, 'bin', 'agent-evidence-check.mjs');
 
 function tmp() {
   return fs.mkdtempSync(path.join(os.tmpdir(), 'dc-obs-'));

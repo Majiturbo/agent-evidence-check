@@ -13,7 +13,7 @@ npx agent-evidence-check doctor --cwd /path/to/your-app   # Node, enrollment, ho
 That runs `scripts/install-hooks.mjs`, which points every supported agent config at **this package**:
 
 - macOS / Linux: `hooks/run.sh`. It finds Node via `DEPLOY_CHECK_NODE`, `PATH`, then Homebrew / nvm / fnm locations, because GUI-launched apps often lack a full `PATH`.
-- Windows: `node "C:/…/deploy-check/hooks/bridge.mjs"` (forward slashes). This one string runs unchanged in PowerShell (Cursor, Trae), Git Bash or PowerShell (Claude Code) and cmd. Codex also gets `commandWindows`.
+- Windows: `node "C:/…/agent-evidence-check/hooks/bridge.mjs"` (forward slashes). This one string runs unchanged in PowerShell (Cursor, Trae), Git Bash or PowerShell (Claude Code) and cmd. Codex also gets `commandWindows`.
 
 Report JSON tells you what was added. Backups are written next to each config as `*.bak.<timestamp>`.
 
@@ -22,8 +22,8 @@ Report JSON tells you what was added. Backups are written next to each config as
 If you prefer not to touch `$HOME` automatically, copy a fragment from `examples/` and set:
 
 ```text
-macOS / Linux: /absolute/path/to/deploy-check/hooks/run.sh
-Windows:       node "C:/absolute/path/to/deploy-check/hooks/bridge.mjs"
+macOS / Linux: /absolute/path/to/agent-evidence-check/hooks/run.sh
+Windows:       node "C:/absolute/path/to/agent-evidence-check/hooks/bridge.mjs"
 ```
 
 On Windows, do not start the command with a quoted path (`"C:/Program Files/…/node.exe" …`): PowerShell treats a leading quoted string as a value and prints it instead of running it.
@@ -35,21 +35,21 @@ On Windows, do not start the command with a quoted path (`"C:/Program Files/…/
 | Codex | `examples/codex-hooks.fragment.json` | `Bash` |
 | Trae | `examples/trae-hooks.json` | **`RunCommand`** |
 | Qoder | `examples/qoder-settings.fragment.json` | `Bash` |
-| VS Code Copilot | `examples/copilot-hooks/deploy-check.json` | `preToolUse` / `bash` |
+| VS Code Copilot | `examples/copilot-hooks/agent-evidence-check.json` | `preToolUse` / `bash` |
 | DSH | `examples/dsh-hooks.json` | needs hooks bridge **or** import Claude Code hooks |
 
 ## App repos
 
 1. Add `deploy-units.json` (start from `examples/deploy-units.example.json`).
-2. Link [`docs/rules/deploy-check.md`](./rules/deploy-check.md) from `AGENTS.md`.
-3. Optional: commit a **workspace** Copilot hook under `.github/hooks/` that calls the same `hooks/run.sh` (path must be valid on each teammate’s machine—prefer `npx`/`PATH` after publish, or document “clone deploy-check next to the app”).
+2. Link [`docs/rules/agent-evidence-check.md`](./rules/agent-evidence-check.md) from `AGENTS.md`.
+3. Optional: commit a **workspace** Copilot hook under `.github/hooks/` that calls the same `hooks/run.sh` (path must be valid on each teammate’s machine—prefer `npx`/`PATH` after publish, or document “clone agent-evidence-check next to the app”).
 
 ## Scope: per-repo opt-in
 
 Hooks are installed user-wide but **only act in repos that contain `deploy-units.json`** (looked up from the shell's cwd up to the git root). Every other repo gets an immediate `allow`. Undo everything with:
 
 ```bash
-node scripts/install-hooks.mjs --uninstall   # removes only deploy-check entries
+node scripts/install-hooks.mjs --uninstall   # removes only agent-evidence-check entries
 ```
 
 In an enrolled repo you can replace the built-in deploy-command patterns:
@@ -86,7 +86,7 @@ English by default. Chinese: `"lang": "zh"` in `deploy-units.json` (recommended,
 - **Codex / Qoder on Windows**: their docs do not name the default Windows shell; the `node "…"` form is expected to work but is unconfirmed.
 - **Heuristic matching**: commands are matched by pattern, so wrappers like `make release` are missed unless listed in `deployCommands`.
 - **Shell tools only**: an agent that edits files or calls an MCP deploy tool bypasses hooks; the rules file in `AGENTS.md` covers that.
-- **Post-deploy is opt-in per unit**: `deploy-check verify` only auto-reads units with an `observe` (or object `verify`) block. String-only units stay `manual` until you pass `--observed` or add a spec.
+- **Post-deploy is opt-in per unit**: `agent-evidence-check verify` only auto-reads units with an `observe` (or object `verify`) block. String-only units stay `manual` until you pass `--observed` or add a spec.
 - **Fail open**: if the config is malformed or the hook errors, it allows and says so in the reason. On macOS/Linux, `run.sh` also fails open when Node is missing.
 
 ## Smoke

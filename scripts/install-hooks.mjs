@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Install deploy-check hooks into the current user's agent configs (idempotent).
+ * Install agent-evidence-check hooks into the current user's agent configs (idempotent).
  *
  *   node scripts/install-hooks.mjs              # install / repair
  *   node scripts/install-hooks.mjs --uninstall  # remove only our entries
@@ -47,6 +47,7 @@ function writeJson(file, value) {
 function isOurs(command) {
   const c = String(command || '');
   return (
+    c.includes('agent-evidence-check') ||
     c.includes('deploy-check') ||
     c.includes('premiseguard') ||
     c.includes('hooks/run.sh') ||
@@ -204,7 +205,9 @@ function installQoder() {
 }
 
 function installCopilot() {
-  const file = path.join(HOME, '.copilot', 'hooks', 'deploy-check.json');
+  const dir = path.join(HOME, '.copilot', 'hooks');
+  const file = path.join(dir, 'agent-evidence-check.json');
+  const legacy = path.join(dir, 'deploy-check.json');
   const j = {
     version: 1,
     hooks: {
@@ -219,6 +222,13 @@ function installCopilot() {
     },
   };
   writeJson(file, j);
+  if (fs.existsSync(legacy) && path.resolve(legacy) !== path.resolve(file)) {
+    try {
+      fs.rmSync(legacy);
+    } catch {
+      /* leave legacy if locked */
+    }
+  }
   return 'written';
 }
 
@@ -261,8 +271,15 @@ function uninstallFrom(file, eventKeys) {
 
 function uninstall() {
   const pre = ['PreToolUse', 'preToolUse'];
-  const copilot = path.join(HOME, '.copilot', 'hooks', 'deploy-check.json');
-  const copilotStatus = fs.existsSync(copilot) ? (fs.rmSync(copilot), 'removed') : 'absent';
+  const copilotNew = path.join(HOME, '.copilot', 'hooks', 'agent-evidence-check.json');
+  const copilotOld = path.join(HOME, '.copilot', 'hooks', 'deploy-check.json');
+  let copilotStatus = 'absent';
+  for (const f of [copilotNew, copilotOld]) {
+    if (fs.existsSync(f)) {
+      fs.rmSync(f);
+      copilotStatus = 'removed';
+    }
+  }
   return {
     cursor: uninstallFrom(path.join(HOME, '.cursor', 'hooks.json'), ['beforeShellExecution', 'stop', 'preToolUse']),
     claude: uninstallFrom(path.join(HOME, '.claude', 'settings.json'), [...pre, 'Stop']),
@@ -282,7 +299,8 @@ if (process.argv.includes('--uninstall')) {
 
 if (!IS_WIN) {
   ensureExec(WRAP);
-  ensureExec(path.join(ROOT, 'bin', 'check-deploy.mjs'));
+  ensureExec(path.join(ROOT, 'bin', 'agent-evidence-check.mjs'));
+  ensureExec(path.join(ROOT, 'bin', 'agent-evidence-check-mcp.mjs'));
 }
 
 const report = {

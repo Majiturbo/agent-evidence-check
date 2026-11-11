@@ -1,10 +1,10 @@
 /**
- * Scaffold deploy-check into any consumer git repo (portable; no author paths).
+ * Scaffold agent-evidence-check into any consumer git repo (portable; no author paths).
  *
  * Writes:
- *   deploy-units.json          — from examples/deploy-units.example.json (lang adjustable)
- *   AGENTS.md                  — appends examples/AGENTS.fragment.md if missing a deploy-check section
- *   .github/hooks/deploy-check.json (optional, --with-copilot-hook) with placeholder command
+ *   deploy-units.json          — from examples/deploy-units.example.json (lang adjustable; name kept for compatibility)
+ *   AGENTS.md                  — appends examples/AGENTS.fragment.md if missing a product section
+ *   .github/hooks/agent-evidence-check.json (optional, --with-copilot-hook) with placeholder command
  */
 
 import fs from 'node:fs';
@@ -15,6 +15,10 @@ const PKG_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'
 
 function readPkgExample(rel) {
   return fs.readFileSync(path.join(PKG_ROOT, rel), 'utf8');
+}
+
+function mentionsProduct(text) {
+  return /agent-evidence-check|deploy-check|Agent evidence checks|Deploy checks/i.test(text);
 }
 
 /**
@@ -41,9 +45,9 @@ export function initConsumer(opts = {}) {
 
   const agentsPath = path.join(cwd, 'AGENTS.md');
   const fragment = readPkgExample('examples/AGENTS.fragment.md')
-    .replace(/^# Deploy checks.*\n+/, '')
+    .replace(/^# .*\n+/, '')
     .trim();
-  const section = `\n\n## Deploy checks (deploy-check)\n\n${fragment}\n`;
+  const section = `\n\n## Agent evidence checks (agent-evidence-check)\n\n${fragment}\n`;
   if (!fs.existsSync(agentsPath)) {
     fs.writeFileSync(
       agentsPath,
@@ -52,13 +56,13 @@ export function initConsumer(opts = {}) {
     actions.push({ file: 'AGENTS.md', status: 'written' });
   } else {
     const existing = fs.readFileSync(agentsPath, 'utf8');
-    if (/deploy-check|Deploy checks/i.test(existing) && !force) {
-      actions.push({ file: 'AGENTS.md', status: 'skipped', reason: 'already mentions deploy-check' });
-    } else if (/deploy-check|Deploy checks/i.test(existing) && force) {
+    if (mentionsProduct(existing) && !force) {
+      actions.push({ file: 'AGENTS.md', status: 'skipped', reason: 'already mentions agent-evidence-check / deploy-check' });
+    } else if (mentionsProduct(existing) && force) {
       actions.push({
         file: 'AGENTS.md',
         status: 'skipped',
-        reason: 'already mentions deploy-check (refusing to duplicate even with --force; edit manually)',
+        reason: 'already mentions product (refusing to duplicate even with --force; edit manually)',
       });
     } else {
       fs.appendFileSync(agentsPath, section);
@@ -68,9 +72,9 @@ export function initConsumer(opts = {}) {
 
   if (opts.withCopilotHook) {
     const hookDir = path.join(cwd, '.github', 'hooks');
-    const hookFile = path.join(hookDir, 'deploy-check.json');
+    const hookFile = path.join(hookDir, 'agent-evidence-check.json');
     if (fs.existsSync(hookFile) && !force) {
-      actions.push({ file: '.github/hooks/deploy-check.json', status: 'skipped', reason: 'exists' });
+      actions.push({ file: '.github/hooks/agent-evidence-check.json', status: 'skipped', reason: 'exists' });
     } else {
       fs.mkdirSync(hookDir, { recursive: true });
       const body = {
@@ -80,16 +84,16 @@ export function initConsumer(opts = {}) {
             {
               type: 'command',
               matcher: 'bash|Bash|powershell',
-              command: '/ABS/PATH/TO/deploy-check/hooks/run.sh',
+              command: '/ABS/PATH/TO/agent-evidence-check/hooks/run.sh',
               timeoutSec: 30,
             },
           ],
         },
         _comment:
-          'Replace the command with your clone of deploy-check (hooks/run.sh on Unix, or node ".../hooks/bridge.mjs" on Windows). Prefer user-level install: npx agent-evidence-check-install-hooks',
+          'Replace the command with your clone of agent-evidence-check (hooks/run.sh on Unix, or node ".../hooks/bridge.mjs" on Windows). Prefer user-level install: npx agent-evidence-check-install-hooks',
       };
       fs.writeFileSync(hookFile, JSON.stringify(body, null, 2) + '\n');
-      actions.push({ file: '.github/hooks/deploy-check.json', status: 'written' });
+      actions.push({ file: '.github/hooks/agent-evidence-check.json', status: 'written' });
     }
   }
 
@@ -98,8 +102,8 @@ export function initConsumer(opts = {}) {
     status: 'info',
     steps: [
       'Edit deploy-units.json: set your unit ids and observe blocks (see docs/verify.md)',
-      'Link or vendor docs/rules/deploy-check.md from the deploy-check package (rules 7–9: direction, loop, done)',
-      'Optional: npx agent-evidence-check-install-hooks  (from a deploy-check clone/package)',
+      'Link or vendor docs/rules/agent-evidence-check.md from the agent-evidence-check package (rules 7–9: direction, loop, done)',
+      'Optional: npx agent-evidence-check-install-hooks',
       'Optional: configure MCP — docs/mcp.md / examples/mcp.*.json',
       'Smoke: npx agent-evidence-check --cwd . --shadow && npx agent-evidence-check done --cwd . && npx agent-evidence-check verify --cwd .',
     ],

@@ -12,12 +12,12 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "agent-evidence-check": "bin/check-deploy.mjs",
+    "agent-evidence-check": "bin/agent-evidence-check.mjs",
     "agent-evidence-check-install-hooks": "scripts/install-hooks.mjs",
-    "agent-evidence-check-mcp": "bin/deploy-check-mcp.mjs",
-    "deploy-check": "bin/check-deploy.mjs",
+    "agent-evidence-check-mcp": "bin/agent-evidence-check-mcp.mjs",
+    "deploy-check": "bin/agent-evidence-check.mjs",
     "deploy-check-install-hooks": "scripts/install-hooks.mjs",
-    "deploy-check-mcp": "bin/deploy-check-mcp.mjs"
+    "deploy-check-mcp": "bin/agent-evidence-check-mcp.mjs"
   },
   "files": [
     "bin",
@@ -39,8 +39,9 @@
   ],
   "scripts": {
     "test": "node --test test/**/*.test.mjs",
-    "check-deploy": "node bin/check-deploy.mjs",
-    "mcp": "node bin/deploy-check-mcp.mjs",
+    "cli": "node bin/agent-evidence-check.mjs",
+    "check-deploy": "node bin/agent-evidence-check.mjs",
+    "mcp": "node bin/agent-evidence-check-mcp.mjs",
     "install-hooks": "node scripts/install-hooks.mjs"
   },
   "keywords": [

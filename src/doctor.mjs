@@ -32,7 +32,7 @@ function readJson(file) {
 function commandLooksOurs(command, packageRoot) {
   const c = String(command || '');
   if (!c) return false;
-  if (c.includes('deploy-check') || c.includes('premiseguard')) return true;
+  if (c.includes('agent-evidence-check') || c.includes('deploy-check') || c.includes('premiseguard')) return true;
   if (c.includes('hooks/run.sh') || c.includes('hooks/bridge.mjs')) return true;
   const norm = packageRoot.split(path.sep).join('/');
   return Boolean(norm && c.includes(norm));
@@ -43,7 +43,7 @@ function scanHooks(file, packageRoot) {
   const j = readJson(file);
   if (!j) return { file, status: 'unreadable' };
   const blob = JSON.stringify(j);
-  const ours = blob.includes('deploy-check') || blob.includes('hooks/run.sh') || blob.includes('hooks/bridge.mjs') || blob.includes(packageRoot.split(path.sep).join('/'));
+  const ours = blob.includes('agent-evidence-check') || blob.includes('deploy-check') || blob.includes('hooks/run.sh') || blob.includes('hooks/bridge.mjs') || blob.includes(packageRoot.split(path.sep).join('/'));
   // also walk commands
   let matched = ours;
   const walk = (node) => {
@@ -55,7 +55,7 @@ function scanHooks(file, packageRoot) {
     }
   };
   walk(j);
-  return { file, status: matched ? 'configured' : 'present_without_deploy_check' };
+  return { file, status: matched ? 'configured' : 'present_without_agent_evidence_check' };
 }
 
 /**
@@ -77,7 +77,7 @@ export function doctor(opts = {}) {
 
   const runSh = path.join(packageRoot, 'hooks', 'run.sh');
   const bridge = path.join(packageRoot, 'hooks', 'bridge.mjs');
-  const mcp = path.join(packageRoot, 'bin', 'deploy-check-mcp.mjs');
+  const mcp = path.join(packageRoot, 'bin', 'agent-evidence-check-mcp.mjs');
   checks.push({
     id: 'package_files',
     ok: exists(bridge) && exists(mcp),
@@ -151,7 +151,8 @@ export function doctor(opts = {}) {
     trae: scanHooks(path.join(home, '.trae', 'hooks.json'), packageRoot),
     traeCn: scanHooks(path.join(home, '.trae-cn', 'hooks.json'), packageRoot),
     qoder: scanHooks(path.join(home, '.qoder', 'settings.json'), packageRoot),
-    copilot: scanHooks(path.join(home, '.copilot', 'hooks', 'deploy-check.json'), packageRoot),
+    copilot: scanHooks(path.join(home, '.copilot', 'hooks', 'agent-evidence-check.json'), packageRoot),
+    copilotLegacy: scanHooks(path.join(home, '.copilot', 'hooks', 'deploy-check.json'), packageRoot),
     dsh: scanHooks(path.join(home, '.dsh', 'hooks.json'), packageRoot),
   };
   const anyHook = Object.values(hookScans).some((h) => h.status === 'configured');
@@ -159,7 +160,7 @@ export function doctor(opts = {}) {
     id: 'user_hooks',
     ok: anyHook,
     detail: hookScans,
-    fix: anyHook ? undefined : 'From a deploy-check clone: npm run install-hooks (then enable Trae/Copilot/DSH UI toggles if needed)',
+    fix: anyHook ? undefined : 'From an agent-evidence-check clone: npm run install-hooks (then enable Trae/Copilot/DSH UI toggles if needed)',
   });
 
   // enrolled + node + package are hard; hooks / gates / warnings soft
@@ -172,14 +173,14 @@ export function doctor(opts = {}) {
     platform: process.platform,
     checks,
     next: [
-      loaded.path ? null : `deploy-check init --cwd ${cwd}`,
-      anyHook ? null : 'deploy-check-install-hooks (from your deploy-check clone)',
+      loaded.path ? null : `agent-evidence-check init --cwd ${cwd}`,
+      anyHook ? null : 'agent-evidence-check-install-hooks (from your agent-evidence-check clone)',
       loaded.path && !(loaded.judgments?.stopGate || loaded.judgments?.editGate)
         ? 'Optional gates: "judgments": { "stopGate": true, "editGate": true } — docs/judgments.md'
         : null,
-      'deploy-check --cwd <app> --shadow',
-      'deploy-check verify --cwd <app>',
-      'deploy-check direction / loop — docs/judgments.md',
+      'agent-evidence-check --cwd <app> --shadow',
+      'agent-evidence-check verify --cwd <app>',
+      'agent-evidence-check direction / loop — docs/judgments.md',
       'Optional MCP: docs/mcp.md',
     ].filter(Boolean),
   };

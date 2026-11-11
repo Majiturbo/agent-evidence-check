@@ -1,8 +1,8 @@
 {
   "mcpServers": {
-    "deploy-check": {
+    "agent-evidence-check": {
       "command": "node",
-      "args": ["/ABS/PATH/TO/deploy-check/bin/deploy-check-mcp.mjs"]
+      "args": ["/ABS/PATH/TO/agent-evidence-check/bin/agent-evidence-check-mcp.mjs"]
     }
   }
 }

@@ -1,6 +1,6 @@
 # Repair loop: same approach class, still “fixed”
 
-- Module: loop escape (`deploy-check loop` / `deploy_check_loop`)
+- Module: loop escape (`agent-evidence-check loop` / `deploy_check_loop`)
 - Role: why the card needs “leave this class + name an alternative,” not only “are you sure?”
 
 ## Pattern

@@ -10,7 +10,7 @@
 
 > **Package rename:** published as [`agent-evidence-check`](https://www.npmjs.com/package/agent-evidence-check) (formerly `@majiturbo/deploy-check`). Config file `deploy-units.json` and MCP tools `deploy_check_*` are unchanged.
 
-> Coding agents treat “right direction / fixed / tests green / it’s live” as settled facts, while the worktree, test exit code, and live units often hold no receipt. Vendor sandboxes stop dangerous commands; **deploy-check** stops **judgments without evidence**—closed-registry checks at four moments, not semantic interrogation on every message.
+> Coding agents treat “right direction / fixed / tests green / it’s live” as settled facts, while the worktree, test exit code, and live units often hold no receipt. Vendor sandboxes stop dangerous commands; **agent-evidence-check** stops **judgments without evidence**—closed-registry checks at four moments, not semantic interrogation on every message.
 
 In day-to-day use the model sounds confident: it follows the prompt without naming a nearer path, stays in one failing approach class for eight edits and still says “fixed,” claims green without a recorded exit `0`, or ships one unit and announces the whole surface is live. That is not a permissions miss—it is **the conclusion arriving before the evidence**.
 
@@ -51,7 +51,7 @@ npm i -g agent-evidence-check
 npx agent-evidence-check --help
 ```
 
-> **Note:** run `npx` from *outside* a checkout of this repo. Inside the clone, `npx` resolves the local package and there is no `.bin` link — use `node bin/check-deploy.mjs …` instead.
+> **Note:** run `npx` from *outside* a checkout of this repo. Inside the clone, `npx` resolves the local package and there is no `.bin` link — use `node bin/agent-evidence-check.mjs …` instead.
 
 Requirements: **Node ≥ 22**, `git` on `PATH`. macOS / Linux / Windows.
 
@@ -137,7 +137,7 @@ npx agent-evidence-check-install-hooks
 "judgments": { "stopGate": true, "editGate": true, "doneGate": true }
 ```
 
-Then re-run install-hooks. Stop / edit events require a recent passing `direction` / `loop` / `done` receipt in `.deploy-check/`. Consumer paste rules: [`docs/rules/deploy-check.md`](docs/rules/deploy-check.md).
+Then re-run install-hooks. Stop / edit events require a recent passing `direction` / `loop` / `done` receipt in `.deploy-check/`. Consumer paste rules: [`docs/rules/agent-evidence-check.md`](docs/rules/agent-evidence-check.md).
 
 Undo hooks: `npx agent-evidence-check-install-hooks --uninstall` (or `node scripts/install-hooks.mjs --uninstall` from a clone).
 
@@ -188,8 +188,8 @@ Custom checks: `custom:` prefix only.
 | Piece | Role |
 |---|---|
 | `deploy-units.json` | Opt-in enrollment; units, `done` / `loop` / `judgments` |
-| CLI `deploy-check` | `direction`, `loop`, `done`, `pre-deploy`, `verify`, `init`, `doctor` |
-| `deploy-check-mcp` | Same five judgment tools over stdio MCP |
+| CLI `agent-evidence-check` (alias `deploy-check`) | `direction`, `loop`, `done`, `pre-deploy`, `verify`, `init`, `doctor` |
+| `agent-evidence-check-mcp` (alias `deploy-check-mcp`) | Same five judgment tools over stdio MCP |
 | `hooks/bridge.mjs` + `hooks/run.sh` | Deploy shell bridge; optional Stop / edit gates |
 | [`docs/adapters.md`](docs/adapters.md) | Hook matrix per host |
 
@@ -205,7 +205,7 @@ Custom checks: `custom:` prefix only.
 | Doc | Contents |
 |---|---|
 | [`docs/judgments.md`](docs/judgments.md) | When to call direction / loop / done; evidence fields |
-| [`docs/rules/deploy-check.md`](docs/rules/deploy-check.md) | Consumer `AGENTS.md` contract |
+| [`docs/rules/agent-evidence-check.md`](docs/rules/agent-evidence-check.md) | Consumer `AGENTS.md` contract |
 | [`docs/verify.md`](docs/verify.md) | Observe types and `verify` |
 | [`docs/mcp.md`](docs/mcp.md) | MCP server setup |
 | [`docs/hook-setup.md`](docs/hook-setup.md) | Install / uninstall hooks |

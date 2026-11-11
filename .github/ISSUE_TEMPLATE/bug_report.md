@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Something broken in deploy-check (library, hooks, verify, direction/loop/done, MCP)
+about: Something broken in agent-evidence-check (library, hooks, verify, direction/loop/done, MCP)
 labels: bug
 ---
 
@@ -8,7 +8,7 @@ labels: bug
 - OS:
 - Node version:
 - Agent host (Cursor / Claude Code / Codex / Trae / Copilot / Qoder / DSH / MCP / CLI only):
-- deploy-check version or git SHA:
+- agent-evidence-check version or git SHA:
 
 **What you did**
 (commands, hook event, or MCP tool call — no secrets, no personal absolute paths required)

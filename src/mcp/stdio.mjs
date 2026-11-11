@@ -6,7 +6,7 @@
 
 import { preDeploy, reviewDirection, reviewDone, reviewLoop, verifyDeploy } from '../api.mjs';
 
-const SERVER_INFO = { name: 'deploy-check', version: '0.1.0' };
+const SERVER_INFO = { name: 'agent-evidence-check', version: '0.2.0' };
 const PROTOCOL = '2024-11-05';
 
 export const TOOLS = [
@@ -251,7 +251,7 @@ export function consumeLines(buffer) {
     try {
       messages.push(JSON.parse(line));
     } catch (e) {
-      process.stderr.write(`deploy-check-mcp: bad JSON line: ${e.message}\n`);
+      process.stderr.write(`agent-evidence-check-mcp: bad JSON line: ${e.message}\n`);
     }
   }
   return { messages, rest };

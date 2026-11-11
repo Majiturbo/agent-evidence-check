@@ -29,11 +29,11 @@ jobs:
           git -C "$TMP" init -q
           git -C "$TMP" -c user.email=ci@example.com -c user.name=ci commit -q --allow-empty -m init
           cp examples/deploy-units.example.json "$TMP/deploy-units.json"
-          node bin/check-deploy.mjs direction --cwd "$TMP" --moment start \
+          node bin/agent-evidence-check.mjs direction --cwd "$TMP" --moment start \
             --goal 'ship' --path 'ship A' --nearer 'ship B' --why 'A is wrong' --evidence 'fact' | grep '"ok": true'
-          node bin/check-deploy.mjs loop --cwd "$TMP" --target x --edits 1 --rejections 0 \
+          node bin/agent-evidence-check.mjs loop --cwd "$TMP" --target x --edits 1 --rejections 0 \
             --tried a --next b --alternative b | grep '"ok": true'
-          node bin/check-deploy.mjs done --cwd "$TMP" --command "node -e \"process.exit(0)\"" | grep '"ok": true'
+          node bin/agent-evidence-check.mjs done --cwd "$TMP" --command "node -e \"process.exit(0)\"" | grep '"ok": true'
       - name: Pack must stay portable
         if: runner.os != 'Windows'
         run: |

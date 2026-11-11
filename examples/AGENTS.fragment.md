@@ -1,8 +1,8 @@
-# Deploy checks (paste into your app’s AGENTS.md)
+# Agent evidence checks (paste into your app’s AGENTS.md)
 
-This app uses [deploy-check](https://github.com/Majiturbo/agent-evidence-check) for evidence before saying “it’s live”.
+This app uses [agent-evidence-check](https://github.com/Majiturbo/agent-evidence-check) for evidence before saying “it’s live”.
 
-Full contract: copy or link `docs/rules/deploy-check.md` from that repository (or vendor a copy).
+Full contract: copy or link `docs/rules/agent-evidence-check.md` from that repository (or vendor a copy).
 
 Hard rules (summary):
 
@@ -21,4 +21,4 @@ npx agent-evidence-check --cwd . --shadow
 npx agent-evidence-check verify --cwd .
 ```
 
-If the MCP server `deploy-check` is configured, call `deploy_check_pre` before deploy-shaped shell commands and `deploy_check_verify` after deploy. Prefer naming the units you actually shipped over a blanket “everything is live”.
+If the MCP server `agent-evidence-check` is configured, call `deploy_check_pre` before deploy-shaped shell commands and `deploy_check_verify` after deploy. Prefer naming the units you actually shipped over a blanket “everything is live”.

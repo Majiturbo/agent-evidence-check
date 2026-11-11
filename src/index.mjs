@@ -1,5 +1,5 @@
 /**
- * Public programmatic API for deploy-check.
+ * Public programmatic API for agent-evidence-check.
  * Prefer the CLI or MCP server unless you are embedding checks in another tool.
  */
 

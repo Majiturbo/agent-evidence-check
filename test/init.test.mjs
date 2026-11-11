@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { initConsumer } from '../src/init.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const CLI = path.join(ROOT, 'bin', 'check-deploy.mjs');
+const CLI = path.join(ROOT, 'bin', 'agent-evidence-check.mjs');
 
 function tmp() {
   return fs.mkdtempSync(path.join(os.tmpdir(), 'dc-init-'));
@@ -27,7 +27,7 @@ test('init writes deploy-units.json and AGENTS.md; second run is idempotent', ()
   assert.ok(!JSON.stringify(units).includes('/Users/'));
 
   const agents = fs.readFileSync(path.join(dir, 'AGENTS.md'), 'utf8');
-  assert.match(agents, /deploy-check/);
+  assert.match(agents, /agent-evidence-check/);
 
   const second = initConsumer({ cwd: dir });
   assert.ok(second.actions.some((a) => a.file === 'deploy-units.json' && a.status === 'skipped'));
@@ -38,19 +38,19 @@ test('init --lang zh and --with-copilot-hook', () => {
   const dir = tmp();
   const out = initConsumer({ cwd: dir, lang: 'zh', withCopilotHook: true });
   assert.equal(JSON.parse(fs.readFileSync(path.join(dir, 'deploy-units.json'), 'utf8')).lang, 'zh');
-  assert.ok(out.actions.some((a) => a.file === '.github/hooks/deploy-check.json' && a.status === 'written'));
-  const hook = fs.readFileSync(path.join(dir, '.github', 'hooks', 'deploy-check.json'), 'utf8');
-  assert.match(hook, /ABS\/PATH\/TO\/deploy-check/);
+  assert.ok(out.actions.some((a) => a.file === '.github/hooks/agent-evidence-check.json' && a.status === 'written'));
+  const hook = fs.readFileSync(path.join(dir, '.github', 'hooks', 'agent-evidence-check.json'), 'utf8');
+  assert.match(hook, /ABS\/PATH\/TO\/agent-evidence-check/);
   assert.ok(!hook.includes('/Users/'));
 });
 
-test('init appends to existing AGENTS.md without deploy-check section', () => {
+test('init appends to existing AGENTS.md without agent-evidence-check section', () => {
   const dir = tmp();
   fs.writeFileSync(path.join(dir, 'AGENTS.md'), '# Hello\n\nBe careful.\n');
   initConsumer({ cwd: dir });
   const text = fs.readFileSync(path.join(dir, 'AGENTS.md'), 'utf8');
   assert.match(text, /^# Hello/m);
-  assert.match(text, /Deploy checks \(deploy-check\)/);
+  assert.match(text, /Agent evidence checks \(agent-evidence-check\)/);
 });
 
 test('CLI init subcommand', () => {
