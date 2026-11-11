@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "deploy-check": {
+      "command": "node",
+      "args": ["/ABS/PATH/TO/deploy-check/bin/deploy-check-mcp.mjs"]
+    }
+  }
+}

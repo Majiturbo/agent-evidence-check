@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "RunCommand",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/ABS/PATH/TO/deploy-check/hooks/run.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/ABS/PATH/TO/deploy-check/hooks/run.sh",
+            "statusMessage": "deploy-check",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

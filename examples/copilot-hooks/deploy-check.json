@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "matcher": "bash|Bash|powershell",
+        "command": "/ABS/PATH/TO/deploy-check/hooks/run.sh",
+        "timeoutSec": 30
+      }
+    ]
+  }
+}

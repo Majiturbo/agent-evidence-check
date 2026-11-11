@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "_note": "For DSH Claude-Code-compatible hooks bridges (upstream packages/hooks/hooks-claude-code or community plugins). Without a bridge, this file alone may not run; alternatively enable Import Claude Code hooks and reuse ~/.claude/settings.json.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|bash|pwsh|shell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/ABS/PATH/TO/deploy-check/hooks/run.sh",
+            "timeout": 30,
+            "statusMessage": "deploy-check"
+          }
+        ]
+      }
+    ]
+  }
+}

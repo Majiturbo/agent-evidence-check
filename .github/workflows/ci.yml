@@ -1,0 +1,51 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [22, 24]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Test
+        run: npm test
+      - name: Judgment CLI smoke (direction / loop / done)
+        run: |
+          TMP=$(mktemp -d)
+          git -C "$TMP" init -q
+          git -C "$TMP" -c user.email=ci@example.com -c user.name=ci commit -q --allow-empty -m init
+          cp examples/deploy-units.example.json "$TMP/deploy-units.json"
+          node bin/check-deploy.mjs direction --cwd "$TMP" --moment start \
+            --goal 'ship' --path 'ship A' --nearer 'ship B' --why 'A is wrong' --evidence 'fact' | grep '"ok": true'
+          node bin/check-deploy.mjs loop --cwd "$TMP" --target x --edits 1 --rejections 0 \
+            --tried a --next b --alternative b | grep '"ok": true'
+          node bin/check-deploy.mjs done --cwd "$TMP" --command "node -e \"process.exit(0)\"" | grep '"ok": true'
+      - name: Pack must stay portable
+        if: runner.os != 'Windows'
+        run: |
+          npm pack --dry-run 2>&1 | tee pack.log
+          ! grep -E '/Users/|/home/[^<]|session.*dump|corpus/' pack.log
+      - name: Hook smoke (bash wrapper)
+        if: runner.os != 'Windows'
+        run: |
+          echo '{"command":"true","cwd":"'"$PWD"'"}' | ./hooks/run.sh | grep -E '"permission"'
+      - name: Hook smoke (PowerShell, as Cursor/Trae run it on Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $out = '{"command":"true","cwd":"."}' | node "$($PWD.Path.Replace('\','/'))/hooks/bridge.mjs"
+          if ($out -notmatch '"permission"') { throw "unexpected: $out" }

@@ -1,0 +1,11 @@
+corpus/
+docs/cases/
+docs/decisions/
+docs/research/
+scripts/lib/
+test/
+.github/
+.cursor/
+.gitignore
+CONTRIBUTING.md
+AGENTS.md

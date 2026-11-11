@@ -1,0 +1,43 @@
+{
+  "lang": "en",
+  "loop": { "minEdits": 3, "minRejections": 2 },
+  "judgments": { "stopGate": true, "editGate": true, "doneGate": true },
+  "done": {
+    "testCommand": "npm test",
+    "testPaths": ["test", "tests", "spec"]
+  },
+  "units": [
+    {
+      "id": "api",
+      "kind": "container_image",
+      "verify": "GET /health → build_sha must equal the deployed commit",
+      "observe": {
+        "type": "http_json",
+        "url": "https://example.com/health",
+        "field": "build_sha"
+      },
+      "note": "Any JSON field works; use a dotted path like data.version if nested"
+    },
+    {
+      "id": "web_static",
+      "kind": "host_files",
+      "verify": "sha256 of the shipped index.html",
+      "observe": {
+        "type": "file_sha256",
+        "path": "dist/index.html"
+      },
+      "expectFingerprint": "replace-with-sha256-of-the-release-artifact",
+      "note": "Host or CDN static files. Shipping only the API image does not update this unit"
+    },
+    {
+      "id": "host_env",
+      "kind": "host_env",
+      "verify": "BUILD_SHA on the host matches the target commit",
+      "observe": {
+        "type": "command",
+        "run": "ssh deploy@example.com 'grep ^BUILD_SHA= /etc/myapp/release.env | cut -d= -f2'"
+      },
+      "note": "command observe runs whatever this repo's author wrote; keep it read-only"
+    }
+  ]
+}
