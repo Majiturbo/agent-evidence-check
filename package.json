@@ -15,9 +15,9 @@
     "./package.json": "./package.json"
   },
   "bin": {
-    "deploy-check": "./bin/check-deploy.mjs",
-    "deploy-check-install-hooks": "./scripts/install-hooks.mjs",
-    "deploy-check-mcp": "./bin/deploy-check-mcp.mjs"
+    "deploy-check": "bin/check-deploy.mjs",
+    "deploy-check-install-hooks": "scripts/install-hooks.mjs",
+    "deploy-check-mcp": "bin/deploy-check-mcp.mjs"
   },
   "files": [
     "bin",
