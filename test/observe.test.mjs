@@ -64,7 +64,7 @@ test('observeUnits: http_json, file_sha256, command, manual, errors', async () =
         { id: 'nested', observe: { type: 'http_json', url: `${srv.url}/health`, field: 'nested.id' } },
         { id: 'text', observe: { type: 'http_text', url: `${srv.url}/plain`, pattern: 'build=(\\w+)' } },
         { id: 'static', observe: { type: 'file_sha256', path: 'admin.html' } },
-        { id: 'cmd', observe: { type: 'command', run: 'printf cmd-ok' } },
+        { id: 'cmd', observe: { type: 'command', run: 'node -e "process.stdout.write(\'cmd-ok\')"' } },
         { id: 'manual', verify: 'look at the dashboard' },
         { id: 'bad', observe: { type: 'http_json', url: `${srv.url}/missing`, field: 'x' } },
       ],

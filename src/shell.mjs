@@ -1,39 +1,28 @@
 /**
  * Run a consumer-authored shell string (done.testCommand, observe.command).
- * Unix: /bin/bash -lc. Windows: cmd.exe /d /s /c with the command wrapped and
- * internal quotes doubled so forms like `node -e "process.exit(0)"` survive CreateProcess.
+ * Uses child_process.exec so Windows cmd.exe and Unix shells parse nested
+ * quotes the same way users type them in a terminal (e.g. node -e "…").
  */
 
-import { execFile } from 'node:child_process';
+import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
 
-const execFileAsync = promisify(execFile);
+const execAsync = promisify(exec);
 
 /**
  * @param {string} command
  * @param {{ cwd?: string, timeout?: number, maxBuffer?: number, env?: NodeJS.ProcessEnv }} opts
  */
 export function runShellCommand(command, opts = {}) {
-  const cwd = opts.cwd;
-  const timeout = opts.timeout;
-  const maxBuffer = opts.maxBuffer ?? 4e6;
-  const env = opts.env || process.env;
-  if (process.platform === 'win32') {
-    const comspec = process.env.ComSpec || 'cmd.exe';
-    // Wrap and double quotes so cmd keeps an inner -e "…" string intact.
-    const wrapped = `"${String(command).replace(/"/g, '""')}"`;
-    return execFileAsync(comspec, ['/d', '/s', '/c', wrapped], {
-      cwd,
-      timeout,
-      maxBuffer,
-      windowsHide: true,
-      env,
-    });
-  }
-  return execFileAsync('/bin/bash', ['-lc', command], {
-    cwd,
-    timeout,
-    maxBuffer,
-    env,
-  });
+  /** @type {import('node:child_process').ExecOptions} */
+  const execOpts = {
+    cwd: opts.cwd,
+    timeout: opts.timeout,
+    maxBuffer: opts.maxBuffer ?? 4e6,
+    windowsHide: true,
+    env: opts.env || process.env,
+  };
+  // Prefer bash on Unix so -lc-style scripts and common builtins match docs.
+  if (process.platform !== 'win32') execOpts.shell = '/bin/bash';
+  return execAsync(command, execOpts);
 }
