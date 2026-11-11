@@ -6,7 +6,7 @@
 
 import { preDeploy, reviewDirection, reviewDone, reviewLoop, verifyDeploy } from '../api.mjs';
 
-const SERVER_INFO = { name: 'agent-evidence-check', version: '0.2.0' };
+const SERVER_INFO = { name: 'agent-evidence-check', version: '0.2.1' };
 const PROTOCOL = '2024-11-05';
 
 export const TOOLS = [

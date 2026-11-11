@@ -1,6 +1,6 @@
 {
   "name": "agent-evidence-check",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Evidence checks for coding agents—direction, repair-loop escape, done/test receipts (anti test-wash), deploy verify. CLI + MCP + opt-in hooks for Cursor, Claude Code, Codex, Trae, Copilot, Qoder, DSH.",
   "type": "module",
   "license": "MIT",

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 — 2026-11-11
+
+- npm: publish `0.2.1` after `0.2.0` was left staged by the OTP name-claim flow (`0.0.0-stage`)
+
 ## 0.2.0 — 2026-11-11
 
 **Rename:** npm / GitHub package is now **`agent-evidence-check`** (was `@majiturbo/deploy-check`).
