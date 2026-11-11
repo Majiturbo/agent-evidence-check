@@ -4,7 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "Evidence before agent judgments settle: direction, loop escape, done (anti test-wash), and deploy. Thin opt-in hooks for Cursor, Claude Code, Codex, Trae, Copilot, Qoder, DSH.",
+  "description": "Evidence checks for coding agents—direction, repair-loop escape, done/test receipts (anti test-wash), deploy verify. CLI + MCP + opt-in hooks for Cursor, Claude Code, Codex, Trae, Copilot, Qoder, DSH.",
   "type": "module",
   "license": "MIT",
   "engines": {
@@ -45,17 +45,24 @@
   },
   "keywords": [
     "agent",
+    "ai-agent",
+    "coding-agent",
+    "llm",
     "evidence",
+    "verification",
     "direction",
-    "loop",
+    "repair-loop",
+    "test-wash",
     "deploy",
     "hooks",
+    "agent-hooks",
     "mcp",
     "cursor",
     "claude-code",
     "codex",
     "trae",
-    "copilot"
+    "copilot",
+    "qoder"
   ],
   "repository": {
     "type": "git",

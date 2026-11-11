@@ -7,11 +7,11 @@
 [![Node](https://img.shields.io/node/v/@majiturbo/deploy-check.svg)](https://www.npmjs.com/package/@majiturbo/deploy-check)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-> Evidence before a coding agent may treat a judgment as settled.
+> Coding agents treat “right direction / fixed / tests green / it’s live” as settled facts, while the worktree, test exit code, and live units often hold no receipt. Vendor sandboxes stop dangerous commands; **deploy-check** stops **judgments without evidence**—closed-registry checks at four moments, not semantic interrogation on every message.
 
-Agents sound sure. They say “I’ll follow the prompt,” “fixed,” “tests are green,” “it’s live” — often with nothing on the record. Vendors already sandbox many dangerous shells. **deploy-check** covers the gap they leave: a small closed registry of checks, one clarification-card shape (CLI / MCP), and optional thin hooks.
+In day-to-day use the model sounds confident: it follows the prompt without naming a nearer path, stays in one failing approach class for eight edits and still says “fixed,” claims green without a recorded exit `0`, or ships one unit and announces the whole surface is live. That is not a permissions miss—it is **the conclusion arriving before the evidence**.
 
-It does **not** scrape chat. It is **not** premise middleware on every message.
+This library is CLI + MCP (same tools) plus optional thin hooks for direction, loop, done, and deploy. It does **not** scrape chat and is **not** premise middleware on every message. The caller (or the agent via MCP) submits the record; the checks only ask whether the receipt holds.
 
 | They say | What’s missing |
 |---|---|
@@ -19,6 +19,14 @@ It does **not** scrape chat. It is **not** premise middleware on every message.
 | “Fixed.” | Leaving the approach class that already failed |
 | “Tests are green / we’re done.” | A recorded exit code `0` (tests not washed) |
 | “It’s live.” | Clean tree, pushed SHA, every unit matches observe |
+
+## Who this is for
+
+- You run **Cursor / Claude Code / Codex** (or similar) agents and get confident “done / fixed / live” claims without a record  
+- You want **hooks + MCP**, not another every-message prompt wrapper  
+- You care about **direction mistakes, repair loops, fake-green tests, and partial deploys**—the failure modes sandboxes do not close  
+
+Search-ish keywords agents and humans use: coding agent evidence, agent hooks, stop gate, repair loop, test wash, deploy verify, MCP judgment tools.
 
 ## Features
 
