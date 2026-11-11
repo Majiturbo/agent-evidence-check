@@ -125,9 +125,9 @@ npx -p @majiturbo/deploy-check deploy-check-mcp
 - 编造省 token、抗循环之类营销数字  
 - 未读公开钩子文档、未跑烟雾就宣称支持某宿主  
 
-## 证据与贡献
+## 为什么有这些检查
 
-普适模式案例（无私人主机）：[`docs/cases/`](docs/cases/) — 方向、修补循环、无测试收据的完成、跨工具 stash、部分上线。决策记录：[`docs/decisions/`](docs/decisions/)。人工贡献：[`CONTRIBUTING.md`](CONTRIBUTING.md)。
+普适模式案例：[`docs/cases/`](docs/cases/)。贡献说明：[`CONTRIBUTING.md`](CONTRIBUTING.md)。
 
 ## 许可证
 

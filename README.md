@@ -125,9 +125,9 @@ Observe / `verify`: [`docs/verify.md`](docs/verify.md). Custom checks: `custom:`
 - Invented token-savings or anti-loop marketing numbers  
 - Claiming a host without a documented hook + smoke (see the matrix)
 
-## Evidence / contributing
+## Why these checks
 
-Pattern cases (portable, no private hosts): [`docs/cases/`](docs/cases/) — direction, repair loop, done-without-tests, cross-tool stash, partial deploy. ADRs: [`docs/decisions/`](docs/decisions/). Human contributors: [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Portable pattern cases: [`docs/cases/`](docs/cases/). Contributing: [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## License
 
