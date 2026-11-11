@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.1 — 2026-11-11
+
+- Richer README (badges, features, worked examples, docs index) and clearer opening copy  
+- Discoverability: GitHub About / topics, npm keywords (`ai-agent`, `agent-hooks`, `repair-loop`, `test-wash`, …)  
+- Docs: drop public ADRs; keep portable `docs/cases/`  
+- Note: run `npx` outside this clone (local package has no `.bin` link)
+
 ## 0.1.0 — 2026-11-11
 
 First public cut: evidence-backed deploy checks for coding agents.
