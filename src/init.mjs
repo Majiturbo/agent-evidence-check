@@ -86,7 +86,7 @@ export function initConsumer(opts = {}) {
           ],
         },
         _comment:
-          'Replace the command with your clone of deploy-check (hooks/run.sh on Unix, or node ".../hooks/bridge.mjs" on Windows). Prefer user-level install: npx deploy-check-install-hooks',
+          'Replace the command with your clone of deploy-check (hooks/run.sh on Unix, or node ".../hooks/bridge.mjs" on Windows). Prefer user-level install: npx -p @majiturbo/deploy-check deploy-check-install-hooks',
       };
       fs.writeFileSync(hookFile, JSON.stringify(body, null, 2) + '\n');
       actions.push({ file: '.github/hooks/deploy-check.json', status: 'written' });
@@ -99,9 +99,9 @@ export function initConsumer(opts = {}) {
     steps: [
       'Edit deploy-units.json: set your unit ids and observe blocks (see docs/verify.md)',
       'Link or vendor docs/rules/deploy-check.md from the deploy-check package (rules 7–9: direction, loop, done)',
-      'Optional: npx deploy-check-install-hooks  (from a deploy-check clone/package)',
+      'Optional: npx -p @majiturbo/deploy-check deploy-check-install-hooks  (from a deploy-check clone/package)',
       'Optional: configure MCP — docs/mcp.md / examples/mcp.*.json',
-      'Smoke: npx deploy-check --cwd . --shadow && npx deploy-check done --cwd . && npx deploy-check verify --cwd .',
+      'Smoke: npx @majiturbo/deploy-check --cwd . --shadow && npx @majiturbo/deploy-check done --cwd . && npx @majiturbo/deploy-check verify --cwd .',
     ],
   });
 

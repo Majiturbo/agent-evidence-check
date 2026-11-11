@@ -27,7 +27,7 @@ node /absolute/path/to/deploy-check/bin/deploy-check-mcp.mjs
 After publish:
 
 ```bash
-npx deploy-check-mcp
+npx -p @majiturbo/deploy-check deploy-check-mcp
 ```
 
 ## Host config examples

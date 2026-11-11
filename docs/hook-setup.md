@@ -7,7 +7,7 @@ From a clone or npm package of **this** repo:
 ```bash
 npm test
 npm run install-hooks
-npx deploy-check doctor --cwd /path/to/your-app   # Node, enrollment, hook presence
+npx @majiturbo/deploy-check doctor --cwd /path/to/your-app   # Node, enrollment, hook presence
 ```
 
 That runs `scripts/install-hooks.mjs`, which points every supported agent config at **this package**:

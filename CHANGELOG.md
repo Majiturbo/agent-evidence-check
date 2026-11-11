@@ -1,8 +1,10 @@
 # Changelog
 
-## 0.1.0 — unreleased
+## 0.1.0 — 2026-11-11
 
 First public cut: evidence-backed deploy checks for coding agents.
+
+npm package is **`@majiturbo/deploy-check`** (unscoped `deploy-check` is already taken on the registry). CLI bin names stay `deploy-check` / `deploy-check-mcp` / `deploy-check-install-hooks`.
 
 - Closed-registry checks: `dirty_tree`, `deploy_from_commit`, `unpushed`, `units_declared`, `units_match`, `hotpatch_drift`, `direction_review`, `loop_escape`, `done_evidence`, `tests_untampered`
 - CLI: `deploy-check` (pre-deploy), `verify`, `direction`, `loop`, `done`, `init`, `doctor`

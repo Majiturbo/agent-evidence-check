@@ -1,6 +1,9 @@
 {
-  "name": "deploy-check",
+  "name": "@majiturbo/deploy-check",
   "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Evidence before agent judgments settle: direction, loop escape, done (anti test-wash), and deploy. Thin opt-in hooks for Cursor, Claude Code, Codex, Trae, Copilot, Qoder, DSH.",
   "type": "module",
   "license": "MIT",

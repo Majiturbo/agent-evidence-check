@@ -73,7 +73,7 @@ npm run install-hooks    # 可选；用户级安装，无 deploy-units.json 时�
 
 **MCP：** `node bin/deploy-check-mcp.mjs`，工具为 `deploy_check_direction` / `_loop` / `_done` / `_pre` / `_verify`，传 `{ "cwd": "/path/to/your-app" }`。见 [`docs/mcp.md`](docs/mcp.md)。
 
-**发布到 npm 之后：** `npx deploy-check …`、`npx deploy-check-install-hooks`、`npx deploy-check-mcp`。
+**发布到 npm 之后：** `npx @majiturbo/deploy-check …`、`npx -p @majiturbo/deploy-check deploy-check-install-hooks`、`npx -p @majiturbo/deploy-check deploy-check-mcp`。
 
 状态：**v0.1，实验版。** macOS / Linux / Windows（`node` 在 `PATH`）。默认英文提示；`"lang": "zh"` 或 `DEPLOY_CHECK_LANG=zh`。可先 `DEPLOY_CHECK_MODE=shadow`。各宿主界面可能还需开一次钩子 — [`docs/hook-setup.md`](docs/hook-setup.md)。
 

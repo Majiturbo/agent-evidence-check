@@ -73,7 +73,7 @@ Consumer rules: [`docs/rules/deploy-check.md`](docs/rules/deploy-check.md). Undo
 
 **MCP:** `node bin/deploy-check-mcp.mjs` — tools `deploy_check_direction` / `_loop` / `_done` / `_pre` / `_verify`. Pass `{ "cwd": "/path/to/your-app" }`. See [`docs/mcp.md`](docs/mcp.md).
 
-**After npm publish:** `npx deploy-check …`, `npx deploy-check-install-hooks`, `npx deploy-check-mcp`.
+**After npm publish:** `npx @majiturbo/deploy-check …`, `npx -p @majiturbo/deploy-check deploy-check-install-hooks`, `npx -p @majiturbo/deploy-check deploy-check-mcp`.
 
 Status: **v0.1, experimental.** macOS / Linux / Windows (`node` on `PATH`). English UX by default; `"lang": "zh"` or `DEPLOY_CHECK_LANG=zh`. Trial with `DEPLOY_CHECK_MODE=shadow`. Host UI may need a one-time enable — [`docs/hook-setup.md`](docs/hook-setup.md).
 
