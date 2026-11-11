@@ -9,11 +9,8 @@ import { createLocalGit } from './git/local.mjs';
 import { loadDeployUnits } from './config.mjs';
 import { observeUnits } from './observe/index.mjs';
 import { resolveLang, t } from './i18n.mjs';
-import { execFile } from 'node:child_process';
-import { promisify } from 'node:util';
 import { noteDirection, noteDone, noteLoop } from './receipts.mjs';
-
-const execFileAsync = promisify(execFile);
+import { runShellCommand } from './shell.mjs';
 
 /**
  * @param {{ cwd?: string, commit?: string|null, configPath?: string|null, mode?: string }} opts
@@ -126,15 +123,11 @@ export async function reviewDone(opts = {}) {
   let stderr = '';
   const shouldRun = opts.run !== false && (exitCode == null || exitCode === '');
   if (shouldRun && testCommand) {
-    const shell = process.platform === 'win32' ? process.env.ComSpec || 'cmd.exe' : '/bin/bash';
-    const shellArgs = process.platform === 'win32' ? ['/d', '/s', '/c', testCommand] : ['-lc', testCommand];
     try {
-      const r = await execFileAsync(shell, shellArgs, {
+      const r = await runShellCommand(testCommand, {
         cwd: loaded.root || cwd,
         timeout: Number(opts.timeoutMs) || 120_000,
         maxBuffer: 4e6,
-        windowsHide: true,
-        env: process.env,
       });
       exitCode = 0;
       stdout = String(r.stdout || '');

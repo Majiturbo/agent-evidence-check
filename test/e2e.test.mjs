@@ -157,7 +157,10 @@ test('language: English by default, Chinese via deploy-units.json lang', () => {
   assert.match(zh, /工作区/);
 });
 
-test('run.sh fail-open when node is missing does not exec the allow JSON', () => {
+test('run.sh fail-open when node is missing does not exec the allow JSON', {
+  // Unix entry only; Windows hosts call bridge.mjs via `node` (see install-hooks).
+  skip: IS_WIN ? 'run.sh is the Unix hook entry' : false,
+}, () => {
   const r = spawnSync('bash', [RUN], {
     input: '{}',
     encoding: 'utf8',

@@ -13,15 +13,12 @@
  */
 
 import { createHash } from 'node:crypto';
-import { execFile } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import { promisify } from 'node:util';
 import { t } from '../i18n.mjs';
+import { runShellCommand } from '../shell.mjs';
 import { OBSERVE_TYPES } from './types.mjs';
 export { OBSERVE_TYPES };
-
-const execFileAsync = promisify(execFile);
 
 export function getObserveSpec(unit) {
   if (unit?.observe && typeof unit.observe === 'object') return unit.observe;
@@ -131,16 +128,8 @@ async function observeCommand(spec, opts) {
   if (!spec.run || typeof spec.run !== 'string') throw new Error('command: run (string) required');
   const cwd = path.resolve(opts.cwd || process.cwd(), spec.cwd || '.');
   const timeout = Number(spec.timeoutMs || opts.timeoutMs || 30_000);
-  const shell = process.platform === 'win32' ? process.env.ComSpec || 'cmd.exe' : '/bin/bash';
-  const shellArgs = process.platform === 'win32' ? ['/d', '/s', '/c', spec.run] : ['-lc', spec.run];
   try {
-    const { stdout } = await execFileAsync(shell, shellArgs, {
-      cwd,
-      timeout,
-      maxBuffer: 2e6,
-      windowsHide: true,
-      env: process.env,
-    });
+    const { stdout } = await runShellCommand(spec.run, { cwd, timeout, maxBuffer: 2e6 });
     return String(stdout || '').trim();
   } catch (e) {
     const detail = [e.stderr, e.stdout, e.message].filter(Boolean).map(String).join(' ').trim();
