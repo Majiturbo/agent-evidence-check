@@ -5,7 +5,7 @@
  * Claude Desktop / Cursor / any MCP host:
  *   { "command": "node", "args": ["/absolute/path/to/deploy-check/bin/deploy-check-mcp.mjs"] }
  *
- * Or after publish: npx -p @majiturbo/deploy-check deploy-check-mcp
+ * Or after publish: npx agent-evidence-check-mcp
  *
  * Tools: deploy_check_pre, deploy_check_verify — see docs/mcp.md
  */

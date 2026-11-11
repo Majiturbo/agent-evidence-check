@@ -26,16 +26,16 @@ Optional `"lang": "zh"` for Chinese messages; default is English.
 
 ```bash
 # after a deploy, before saying "it's live"
-npx @majiturbo/deploy-check verify --cwd /path/to/your-app
+npx agent-evidence-check verify --cwd /path/to/your-app
 
 # one unit
-npx @majiturbo/deploy-check verify --cwd . --unit api
+npx agent-evidence-check verify --cwd . --unit api
 
 # fill manual units
-npx @majiturbo/deploy-check verify --cwd . --observed '{"web_static":"<sha256>"}'
+npx agent-evidence-check verify --cwd . --observed '{"web_static":"<sha256>"}'
 
 # CI: fail the job when mismatched
-npx @majiturbo/deploy-check verify --cwd . --block
+npx agent-evidence-check verify --cwd . --block
 ```
 
 Exit code is non-zero only with `--block` (so agents can always parse the JSON). Advisory mode prints `"ok": false` without failing the process.

@@ -22,7 +22,7 @@ v0.1 scope: deploy hooks + `verify`, plus explicit `direction`, `loop`, and `don
 ## 2. Hard constraints (do not violate)
 
 1. **Audience = any GitHub user.** Every example, default, README snippet, and installer path must work for a stranger’s clone. Ask: “Would this still make sense if the author’s laptop and apps did not exist?”
-2. **No personal absolute paths** in committed files (`/Users/…`, vendor runtime paths like a specific DSH Node). Use `hooks/run.sh`, `npx @majiturbo/deploy-check`, or documented placeholders such as `/ABS/PATH/TO/deploy-check/hooks/run.sh`.
+2. **No personal absolute paths** in committed files (`/Users/…`, vendor runtime paths like a specific DSH Node). Use `hooks/run.sh`, `npx agent-evidence-check`, or documented placeholders such as `/ABS/PATH/TO/deploy-check/hooks/run.sh`.
 3. **No private product identity in the public surface.** Examples use `example.com` and generic unit ids (`api`, `web_static`). Case studies stay **pattern + redacted**; do not put real hostnames, app brand names, or internal paths into `examples/`, `README*`, or user-facing strings.
 4. **Opt-in per repo.** Hooks may be installed user-wide but must **no-op** unless that repo has `deploy-units.json`. Never make “install hooks” mean “police every repo on the machine.”
 5. **One check implementation.** New agent hosts get a stdin dialect in `hooks/bridge.mjs` (and a row in `docs/adapters.md`) — do not fork `dirty_tree` per IDE.

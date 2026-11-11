@@ -111,7 +111,7 @@ export function doctor(opts = {}) {
     detail: loaded.path
       ? { unitsFile: loaded.path, unitCount: loaded.units.length, warnings: loaded.warnings || [] }
       : { message: 'no deploy-units.json — hooks will no-op in this repo', error: loaded.error },
-    fix: loaded.path ? undefined : `npx @majiturbo/deploy-check init --cwd ${cwd}`,
+    fix: loaded.path ? undefined : `npx agent-evidence-check init --cwd ${cwd}`,
   });
   if (loaded.path && (loaded.warnings || []).length) {
     checks.push({

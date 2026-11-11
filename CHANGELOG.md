@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 — 2026-11-11
+
+**Rename:** npm / GitHub package is now **`agent-evidence-check`** (was `@majiturbo/deploy-check`).
+
+- CLI: `agent-evidence-check`, `agent-evidence-check-install-hooks`, `agent-evidence-check-mcp` (old `deploy-check*` bins kept as aliases)
+- Config file `deploy-units.json` and MCP tool ids `deploy_check_*` unchanged for compatibility
+- Old scoped package will be deprecated on npm with a pointer here
+
 ## 0.1.1 — 2026-11-11
 
 - Richer README (badges, features, worked examples, docs index) and clearer opening copy  
@@ -11,7 +19,7 @@
 
 First public cut: evidence-backed deploy checks for coding agents.
 
-npm package is **`@majiturbo/deploy-check`** (unscoped `deploy-check` is already taken on the registry). CLI bin names stay `deploy-check` / `deploy-check-mcp` / `deploy-check-install-hooks`.
+npm package is **`agent-evidence-check`** (unscoped `deploy-check` is already taken on the registry). CLI bin names stay `deploy-check` / `deploy-check-mcp` / `deploy-check-install-hooks`.
 
 - Closed-registry checks: `dirty_tree`, `deploy_from_commit`, `unpushed`, `units_declared`, `units_match`, `hotpatch_drift`, `direction_review`, `loop_escape`, `done_evidence`, `tests_untampered`
 - CLI: `deploy-check` (pre-deploy), `verify`, `direction`, `loop`, `done`, `init`, `doctor`

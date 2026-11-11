@@ -22,7 +22,7 @@ A pass needs all of:
 | `evidence` | One fact: a file, a constraint, or the user’s sentence |
 
 ```bash
-npx @majiturbo/deploy-check direction --cwd . --moment turn \
+npx agent-evidence-check direction --cwd . --moment turn \
   --goal "Ship a static banner" \
   --path "Keep tuning the canvas animation" \
   --nearer "Use one static image" \
@@ -46,7 +46,7 @@ It trips when any of these is true (defaults; override with `loop.minEdits` / `l
 A pass after a trip needs `next` to be a **different** class from `tried`, and `next` must be one of `--alternative`.
 
 ```bash
-npx @majiturbo/deploy-check loop --cwd . --target banner --edits 4 --rejections 2 \
+npx agent-evidence-check loop --cwd . --target banner --edits 4 --rejections 2 \
   --tried "tweak animation" --next "use a static image" \
   --alternative "use a static image" --alternative "drop the effect"
 ```
@@ -65,10 +65,10 @@ A pass needs:
 2. Uncommitted diff under `done.testPaths` must not **delete** test files or add classic wash lines (`it.skip`, `test.skip`, `assert True`, `expect(true)`, …)
 
 ```bash
-npx @majiturbo/deploy-check done --cwd .
-npx @majiturbo/deploy-check done --cwd . --command "npm test" --block
+npx agent-evidence-check done --cwd .
+npx agent-evidence-check done --cwd . --command "npm test" --block
 # already ran tests:
-npx @majiturbo/deploy-check done --cwd . --exit-code 0 --no-run --command "npm test"
+npx agent-evidence-check done --cwd . --exit-code 0 --no-run --command "npm test"
 ```
 
 MCP tool: `deploy_check_done`. Config:

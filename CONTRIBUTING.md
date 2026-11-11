@@ -6,7 +6,7 @@ v0.1 ships **deploy** verification (hooks + `verify`), plus explicit **direction
 
 ## Rules of the road
 
-1. **No machine-specific paths** in committed config examples (`/Users/…`, vendor runtime paths). Use `hooks/run.sh` or `npx -p @majiturbo/deploy-check deploy-check-install-hooks`.
+1. **No machine-specific paths** in committed config examples (`/Users/…`, vendor runtime paths). Use `hooks/run.sh` or `npx agent-evidence-check-install-hooks`.
 2. **One check implementation**: new tools get a stdin dialect in `hooks/bridge.mjs` or a docs row—do not copy `dirty_tree`.
 3. **Honest adapter matrix**: if you have not run the vendor docs + a smoke payload, mark the tool as unverified; do not claim support.
 4. **Tests**: every builtin check needs positive and negative cases in `test/`.
@@ -29,7 +29,7 @@ Follow root [`AGENTS.md`](AGENTS.md) (open-source audience, no personal paths). 
 
 ## Publishing (GitHub / npm)
 
-1. Public URLs in `package.json` point at `Majiturbo/deploy-check`. Create that empty GitHub repo before the first push if it does not exist yet.
+1. Public URLs in `package.json` point at `Majiturbo/agent-evidence-check`. Create that empty GitHub repo before the first push if it does not exist yet.
 2. Do **not** commit private transcripts, `.env`, or machine-local hook configs (`.cursor/` is gitignored).
 3. Prefer a **clean initial history** for the first public push. Older local commits may still contain author laptop paths and private app names; a squash or orphan commit avoids publishing those blobs.
 
@@ -43,5 +43,5 @@ git commit -m "deploy-check 0.1.0"
 ```
 
 4. Confirm `npm pack --dry-run` has no `/Users/` paths and no session dumps.
-5. Tag `v0.1.0` after CI is green. Publish as **`@majiturbo/deploy-check`** (`npm publish --access public`) — unscoped `deploy-check` is taken on the registry.
+5. Tag `v0.1.0` after CI is green. Publish as **`agent-evidence-check`** (`npm publish --access public`) — unscoped `deploy-check` is taken on the registry.
 6. First-time consumers should run `npm run install-hooks` from **their** clone so `$HOME` points at their path, not yours.

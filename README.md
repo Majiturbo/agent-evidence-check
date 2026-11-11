@@ -1,11 +1,14 @@
-# deploy-check
+# agent-evidence-check
 
 [中文说明](./README.zh-CN.md)
 
-[![npm](https://img.shields.io/npm/v/@majiturbo/deploy-check.svg)](https://www.npmjs.com/package/@majiturbo/deploy-check)
-[![CI](https://github.com/Majiturbo/deploy-check/actions/workflows/ci.yml/badge.svg)](https://github.com/Majiturbo/deploy-check/actions/workflows/ci.yml)
-[![Node](https://img.shields.io/node/v/@majiturbo/deploy-check.svg)](https://www.npmjs.com/package/@majiturbo/deploy-check)
+[![npm](https://img.shields.io/npm/v/agent-evidence-check.svg)](https://www.npmjs.com/package/agent-evidence-check)
+[![CI](https://github.com/Majiturbo/agent-evidence-check/actions/workflows/ci.yml/badge.svg)](https://github.com/Majiturbo/agent-evidence-check/actions/workflows/ci.yml)
+[![Node](https://img.shields.io/node/v/agent-evidence-check.svg)](https://www.npmjs.com/package/agent-evidence-check)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
+
+> **Package rename:** published as [`agent-evidence-check`](https://www.npmjs.com/package/agent-evidence-check) (formerly `@majiturbo/deploy-check`). Config file `deploy-units.json` and MCP tools `deploy_check_*` are unchanged.
 
 > Coding agents treat “right direction / fixed / tests green / it’s live” as settled facts, while the worktree, test exit code, and live units often hold no receipt. Vendor sandboxes stop dangerous commands; **deploy-check** stops **judgments without evidence**—closed-registry checks at four moments, not semantic interrogation on every message.
 
@@ -43,9 +46,9 @@ Search-ish keywords agents and humans use: coding agent evidence, agent hooks, s
 ## Install
 
 ```bash
-npm i -g @majiturbo/deploy-check
+npm i -g agent-evidence-check
 # or one-shot:
-npx @majiturbo/deploy-check --help
+npx agent-evidence-check --help
 ```
 
 > **Note:** run `npx` from *outside* a checkout of this repo. Inside the clone, `npx` resolves the local package and there is no `.bin` link — use `node bin/check-deploy.mjs …` instead.
@@ -56,10 +59,10 @@ Requirements: **Node ≥ 22**, `git` on `PATH`. macOS / Linux / Windows.
 
 ```bash
 cd /tmp
-npx @majiturbo/deploy-check init --cwd /tmp/sample-app
+npx agent-evidence-check init --cwd /tmp/sample-app
 
 # nearer path identical to current path → blocked
-npx @majiturbo/deploy-check direction --cwd /tmp/sample-app \
+npx agent-evidence-check direction --cwd /tmp/sample-app \
   --moment start \
   --goal 'speed up the slow page' \
   --path 'rewrite the renderer' \
@@ -85,7 +88,7 @@ Trimmed result (advisory mode still returns `allow: true`; open gates to enforce
 Pass by naming a **different** nearer path:
 
 ```bash
-npx @majiturbo/deploy-check direction --cwd /tmp/sample-app \
+npx agent-evidence-check direction --cwd /tmp/sample-app \
   --moment start \
   --goal 'speed up the slow page' \
   --path 'rewrite the renderer' \
@@ -98,20 +101,20 @@ npx @majiturbo/deploy-check direction --cwd /tmp/sample-app \
 
 ```bash
 # same approach class + "fixed" → blocked
-npx @majiturbo/deploy-check loop --cwd /tmp/sample-app \
+npx agent-evidence-check loop --cwd /tmp/sample-app \
   --target src/page.tsx --edits 8 --rejections 3 --claims-fixed \
   --tried 'tweak CSS' --next 'tweak CSS'
 
 # leave the class → passes
-npx @majiturbo/deploy-check loop --cwd /tmp/sample-app \
+npx agent-evidence-check loop --cwd /tmp/sample-app \
   --target src/page.tsx --edits 8 --rejections 3 --claims-fixed \
   --tried 'tweak CSS' --next 'drop the effect' --alternative 'drop the effect'
 
 # no green test on the record → blocked
-npx @majiturbo/deploy-check done --cwd /tmp/sample-app --no-run --exit-code 1
+npx agent-evidence-check done --cwd /tmp/sample-app --no-run --exit-code 1
 
 # recorded exit 0 → passes (also scans uncommitted test diffs for wash)
-npx @majiturbo/deploy-check done --cwd /tmp/sample-app --no-run --exit-code 0
+npx agent-evidence-check done --cwd /tmp/sample-app --no-run --exit-code 0
 ```
 
 Full contract: [`docs/judgments.md`](docs/judgments.md).
@@ -119,11 +122,11 @@ Full contract: [`docs/judgments.md`](docs/judgments.md).
 ## Use it in an app repo
 
 ```bash
-npx @majiturbo/deploy-check init --cwd /path/to/your-app
-npx @majiturbo/deploy-check doctor --cwd /path/to/your-app
+npx agent-evidence-check init --cwd /path/to/your-app
+npx agent-evidence-check doctor --cwd /path/to/your-app
 
 # optional user-level hooks (Cursor, Claude Code, Codex, …)
-npx -p @majiturbo/deploy-check deploy-check-install-hooks
+npx agent-evidence-check-install-hooks
 ```
 
 `init` writes `deploy-units.json` + an `AGENTS.md` fragment. Edit units and observe blocks — see [`docs/verify.md`](docs/verify.md) and [`examples/deploy-units.example.json`](examples/deploy-units.example.json).
@@ -136,12 +139,12 @@ npx -p @majiturbo/deploy-check deploy-check-install-hooks
 
 Then re-run install-hooks. Stop / edit events require a recent passing `direction` / `loop` / `done` receipt in `.deploy-check/`. Consumer paste rules: [`docs/rules/deploy-check.md`](docs/rules/deploy-check.md).
 
-Undo hooks: `npx -p @majiturbo/deploy-check deploy-check-install-hooks --uninstall` (or `node scripts/install-hooks.mjs --uninstall` from a clone).
+Undo hooks: `npx agent-evidence-check-install-hooks --uninstall` (or `node scripts/install-hooks.mjs --uninstall` from a clone).
 
 ### MCP
 
 ```bash
-npx -p @majiturbo/deploy-check deploy-check-mcp
+npx agent-evidence-check-mcp
 ```
 
 Wire stdio MCP in your host; pass `{ "cwd": "/path/to/your-app" }` on each tool call. Fragments: [`examples/mcp.cursor.fragment.json`](examples/mcp.cursor.fragment.json), [`examples/mcp.claude-desktop.fragment.json`](examples/mcp.claude-desktop.fragment.json). Details: [`docs/mcp.md`](docs/mcp.md).
@@ -149,8 +152,8 @@ Wire stdio MCP in your host; pass `{ "cwd": "/path/to/your-app" }` on each tool 
 ### Deploy path
 
 ```bash
-npx @majiturbo/deploy-check --cwd /path/to/your-app --shadow
-npx @majiturbo/deploy-check verify --cwd /path/to/your-app
+npx agent-evidence-check --cwd /path/to/your-app --shadow
+npx agent-evidence-check verify --cwd /path/to/your-app
 ```
 
 Default mode is **advisory**. Prefer worktrees + push + CI/GitOps for release; use this when agents still claim “live” without a receipt.
@@ -217,8 +220,8 @@ Custom checks: `custom:` prefix only.
 
 **v0.1, experimental.** English UX by default; `"lang": "zh"` or `DEPLOY_CHECK_LANG=zh`. Trial with `DEPLOY_CHECK_MODE=shadow`. Some host UIs need a one-time toggle — see [`docs/hook-setup.md`](docs/hook-setup.md).
 
-Package: [`@majiturbo/deploy-check`](https://www.npmjs.com/package/@majiturbo/deploy-check)  
-Source: [`Majiturbo/deploy-check`](https://github.com/Majiturbo/deploy-check)
+Package: [`agent-evidence-check`](https://www.npmjs.com/package/agent-evidence-check)  
+Source: [`Majiturbo/agent-evidence-check`](https://github.com/Majiturbo/agent-evidence-check)
 
 ## License
 

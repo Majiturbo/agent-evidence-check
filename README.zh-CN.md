@@ -1,11 +1,14 @@
-# deploy-check
+# agent-evidence-check
 
 [English](./README.md)
 
-[![npm](https://img.shields.io/npm/v/@majiturbo/deploy-check.svg)](https://www.npmjs.com/package/@majiturbo/deploy-check)
-[![CI](https://github.com/Majiturbo/deploy-check/actions/workflows/ci.yml/badge.svg)](https://github.com/Majiturbo/deploy-check/actions/workflows/ci.yml)
-[![Node](https://img.shields.io/node/v/@majiturbo/deploy-check.svg)](https://www.npmjs.com/package/@majiturbo/deploy-check)
+[![npm](https://img.shields.io/npm/v/agent-evidence-check.svg)](https://www.npmjs.com/package/agent-evidence-check)
+[![CI](https://github.com/Majiturbo/agent-evidence-check/actions/workflows/ci.yml/badge.svg)](https://github.com/Majiturbo/agent-evidence-check/actions/workflows/ci.yml)
+[![Node](https://img.shields.io/node/v/agent-evidence-check.svg)](https://www.npmjs.com/package/agent-evidence-check)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+
+
+> **包已更名：** npm / 仓库现为 [`agent-evidence-check`](https://www.npmjs.com/package/agent-evidence-check)（原 `@majiturbo/deploy-check`）。配置文件 `deploy-units.json` 与 MCP 工具名 `deploy_check_*` 未改，兼容旧接入。
 
 > 编码 Agent 会把「方向对了 / 改好了 / 测试绿了 / 已经上线」说成定论，但工作区、测试退出码和线上单元上往往什么都没留下。厂商沙箱管的是危险命令；**deploy-check** 管的是这些**没有收据的判断**——在四个时刻用封闭检查要证据，而不是每条消息做语义审讯。
 
@@ -43,9 +46,9 @@
 ## 安装
 
 ```bash
-npm i -g @majiturbo/deploy-check
+npm i -g agent-evidence-check
 # 或一次性：
-npx @majiturbo/deploy-check --help
+npx agent-evidence-check --help
 ```
 
 > **注意：** 请在*本仓库检出目录之外*跑 `npx`。在仓库里面，`npx` 会解析到本地包且没有 `.bin` 链接 — 请改用 `node bin/check-deploy.mjs …`。
@@ -56,10 +59,10 @@ npx @majiturbo/deploy-check --help
 
 ```bash
 cd /tmp
-npx @majiturbo/deploy-check init --cwd /tmp/sample-app --lang zh
+npx agent-evidence-check init --cwd /tmp/sample-app --lang zh
 
 # 更近路径与当前路径相同 → 拦住
-npx @majiturbo/deploy-check direction --cwd /tmp/sample-app \
+npx agent-evidence-check direction --cwd /tmp/sample-app \
   --moment start \
   --goal '把慢页面变快' \
   --path '重写渲染层' \
@@ -85,7 +88,7 @@ npx @majiturbo/deploy-check direction --cwd /tmp/sample-app \
 要过关：写出**不同的**更近路径：
 
 ```bash
-npx @majiturbo/deploy-check direction --cwd /tmp/sample-app \
+npx agent-evidence-check direction --cwd /tmp/sample-app \
   --moment start \
   --goal '把慢页面变快' \
   --path '重写渲染层' \
@@ -98,20 +101,20 @@ npx @majiturbo/deploy-check direction --cwd /tmp/sample-app \
 
 ```bash
 # 同一做法类 + 声称已修好 → 拦住
-npx @majiturbo/deploy-check loop --cwd /tmp/sample-app \
+npx agent-evidence-check loop --cwd /tmp/sample-app \
   --target src/page.tsx --edits 8 --rejections 3 --claims-fixed \
   --tried '微调样式' --next '微调样式'
 
 # 离开该类 → 通过
-npx @majiturbo/deploy-check loop --cwd /tmp/sample-app \
+npx agent-evidence-check loop --cwd /tmp/sample-app \
   --target src/page.tsx --edits 8 --rejections 3 --claims-fixed \
   --tried '微调样式' --next '去掉特效' --alternative '去掉特效'
 
 # 没有绿测试记录 → 拦住
-npx @majiturbo/deploy-check done --cwd /tmp/sample-app --no-run --exit-code 1
+npx agent-evidence-check done --cwd /tmp/sample-app --no-run --exit-code 1
 
 # 退出码 0 → 通过（同时扫描未提交测试 diff 是否被洗）
-npx @majiturbo/deploy-check done --cwd /tmp/sample-app --no-run --exit-code 0
+npx agent-evidence-check done --cwd /tmp/sample-app --no-run --exit-code 0
 ```
 
 完整约定：[`docs/judgments.md`](docs/judgments.md)。
@@ -119,11 +122,11 @@ npx @majiturbo/deploy-check done --cwd /tmp/sample-app --no-run --exit-code 0
 ## 接到应用仓库
 
 ```bash
-npx @majiturbo/deploy-check init --cwd /path/to/your-app --lang zh
-npx @majiturbo/deploy-check doctor --cwd /path/to/your-app
+npx agent-evidence-check init --cwd /path/to/your-app --lang zh
+npx agent-evidence-check doctor --cwd /path/to/your-app
 
 # 可选：用户级钩子（Cursor、Claude Code、Codex …）
-npx -p @majiturbo/deploy-check deploy-check-install-hooks
+npx agent-evidence-check-install-hooks
 ```
 
 `init` 会写入 `deploy-units.json` 和一段 `AGENTS.md`。编辑单元与 observe — 见 [`docs/verify.md`](docs/verify.md)、[`examples/deploy-units.example.json`](examples/deploy-units.example.json)。
@@ -136,12 +139,12 @@ npx -p @majiturbo/deploy-check deploy-check-install-hooks
 
 然后重新跑 install-hooks。Stop / 编辑需要 `.deploy-check/` 里近期通过的 `direction` / `loop` / `done` 收据。消费方规则：[`docs/rules/deploy-check.zh-CN.md`](docs/rules/deploy-check.zh-CN.md)。
 
-卸载：`npx -p @majiturbo/deploy-check deploy-check-install-hooks --uninstall`（或在 clone 里 `node scripts/install-hooks.mjs --uninstall`）。
+卸载：`npx agent-evidence-check-install-hooks --uninstall`（或在 clone 里 `node scripts/install-hooks.mjs --uninstall`）。
 
 ### MCP
 
 ```bash
-npx -p @majiturbo/deploy-check deploy-check-mcp
+npx agent-evidence-check-mcp
 ```
 
 在宿主里配 stdio MCP；每次调用传 `{ "cwd": "/path/to/your-app" }`。片段：[`examples/mcp.cursor.fragment.json`](examples/mcp.cursor.fragment.json)、[`examples/mcp.claude-desktop.fragment.json`](examples/mcp.claude-desktop.fragment.json)。详见 [`docs/mcp.md`](docs/mcp.md)。
@@ -149,8 +152,8 @@ npx -p @majiturbo/deploy-check deploy-check-mcp
 ### 部署路径
 
 ```bash
-npx @majiturbo/deploy-check --cwd /path/to/your-app --shadow
-npx @majiturbo/deploy-check verify --cwd /path/to/your-app
+npx agent-evidence-check --cwd /path/to/your-app --shadow
+npx agent-evidence-check verify --cwd /path/to/your-app
 ```
 
 默认 **advisory**。正规发布仍优先 worktree + 推送 + CI/GitOps；这个库兜住 Agent 仍无收据就说「上线」的情况。
@@ -217,8 +220,8 @@ npx @majiturbo/deploy-check verify --cwd /path/to/your-app
 
 **v0.1，实验版。** 默认英文提示；`"lang": "zh"` 或 `DEPLOY_CHECK_LANG=zh`。可先 `DEPLOY_CHECK_MODE=shadow`。部分宿主界面需要开一次开关 — 见 [`docs/hook-setup.md`](docs/hook-setup.md)。
 
-包：[`@majiturbo/deploy-check`](https://www.npmjs.com/package/@majiturbo/deploy-check)  
-源码：[`Majiturbo/deploy-check`](https://github.com/Majiturbo/deploy-check)
+包：[`agent-evidence-check`](https://www.npmjs.com/package/agent-evidence-check)  
+源码：[`Majiturbo/agent-evidence-check`](https://github.com/Majiturbo/agent-evidence-check)
 
 ## 许可证
 

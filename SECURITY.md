@@ -15,4 +15,4 @@
 
 ## Reporting
 
-Please open a GitHub issue at https://github.com/Majiturbo/deploy-check/issues describing the issue without secrets. Do not attach production credentials, session dumps, or `.env` files.
+Please open a GitHub issue at https://github.com/Majiturbo/agent-evidence-check/issues describing the issue without secrets. Do not attach production credentials, session dumps, or `.env` files.
